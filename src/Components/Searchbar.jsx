@@ -7,10 +7,10 @@ class Searchbar extends Component {
         <>
         <Toolbar/>
         <Toolbar/>
-<Box sx={{display: "flex",justifyContent:"center",alignItems:"center" ,position:"relative"}}>
+<Box sx={{display: "flex",justifyContent:"center",alignItems:"center"}}>
 <Paper elevation={2}>
     <ButtonGroup>
-      <TextField variant='outlined' placeholder='Search for Products,Brands and More' type='search' size='medium' color='inherit' sx={{width:"600px",borderRadius:"50px"}}/>
+      <TextField variant='outlined' placeholder='Search for Products,Brands and More' type='search' size='medium' color='inherit' sx={{width:"400px",borderRadius:"50px"}}/>
        <Button variant='contained' color='inherit' ><SearchIcon/></Button>
        </ButtonGroup>
        </Paper>

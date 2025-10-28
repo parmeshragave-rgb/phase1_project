@@ -3,7 +3,7 @@ import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,B
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import Searchbar from '../Components/Searchbar';
-
+import Categorydrop from '../Components/Categorydrop';
 class Product extends Component {
     constructor(props) {
       super(props)
@@ -16,10 +16,15 @@ class Product extends Component {
     clickhandler = (id) => {
             this.props.navigate(`/product/${id}`)
     }
+   
 
-    componentDidMount(){
-     axios.get('https://fakestoreapi.com/products')
-     .then(res => {
+    fetchdata = (cat='') =>{
+       const api=(cat)
+       ? `https://fakestoreapi.com/products/category/${cat}`
+       : 'https://fakestoreapi.com/products'
+        
+       axios.get(api)
+       .then(res => {
         this.setState({
             products:res.data
 
@@ -28,16 +33,37 @@ class Product extends Component {
      })
      .catch(error => console.log(error))
     }
+
+
+    componentDidMount(){
+        this.fetchdata()
+    }
+
+
+    handlecatchange = (cat) =>{
+        this.fetchdata(cat)
+    }
   render() {
     const{products}=this.state;
     return (
       <>
-       <Searchbar/>
-                <Toolbar />
-      <Grid container spacing={2} justifyContent="center">
-      {products.map(products =>  <Grid item xs={12} sm={6} md="auto" key={products.id}>
-         <Box width={"300px"}>
-                <Card onClick={() => {this.clickhandler(products.id)}}  sx={ {height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
+<Box sx={{ px: 4, mb: 3 }}>
+  <Grid container justifyContent="space-around" spacing={2}>
+    <Grid item xs={12} md={6} lg={8}>
+      <Searchbar />
+    </Grid>
+
+    <Grid item xs={12} md="auto">
+      <Categorydrop oncatchange={this.handlecatchange} />
+    </Grid>
+  </Grid>
+</Box>
+<Toolbar />
+
+<Grid container spacing={2} justifyContent="center">
+      {products.map(products =>  <Grid item xs={12} sm={6} md={3}  lg={3} key={products.id}>
+         <Box>
+                <Card onClick={() => {this.clickhandler(products.id)}}  sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
                     <CardMedia  component="img" height="200" image={products.image}  sx={{ objectFit: "contain", p: 2 }}/>
                     <CardContent sx={{flexGrow:1}}>
                   <Typography variant='h6' >{products.title.substring(0,40)}</Typography>
@@ -52,6 +78,8 @@ class Product extends Component {
           
       </Grid>)}
       </Grid>
+     
+     
       </>
     )
   }

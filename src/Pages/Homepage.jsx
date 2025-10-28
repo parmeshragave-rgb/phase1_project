@@ -1,56 +1,99 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Searchbar from '../Components/Searchbar';
-import { Toolbar,Grid ,Card} from '@mui/material';
-// import axios from 'axios'
-
+import {
+  Toolbar,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  Box,
+  Button,
+} from '@mui/material';
+import axios from 'axios';
 
 class Homepage extends Component {
-//  constructor(props) {
-//         super(props)
-      
-//         this.state = {
-//             productscat:[]
-//         }
-//       }
-  
-// componentDidMount(){
-//      axios.get('https://fakestoreapi.com/products')
-//      .then(res => {
-//         this.setState({
-//             productscat:res.data
-//         })
-//      })
-//      .catch(error => console.log(error))
-//     }
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+    };
+  }
 
+  componentDidMount() {
+    axios
+      .get('https://fakestoreapi.com/products')
+      .then((res) => {
+        const data = res.data;
+        const categoryMap = {};
+
+        data.forEach((item) => {
+          if (!categoryMap[item.category]) {
+            categoryMap[item.category] = [];
+          }
+          categoryMap[item.category].push(item);
+        });
+
+        const categories = Object.keys(categoryMap).map((cat) => ({
+          name: cat,
+          items: categoryMap[cat],
+        }));
+
+        this.setState({ categories });
+      })
+      .catch((err) => alert(`Error: ${err}`));
+  }
+
+  clickhandler = (id) => {
+    console.log('Clicked product ID:', id);
+  };
 
   render() {
-    //  const{productscat}=this.state;
+    const { categories } = this.state;
+
     return (
       <>
-       <Searchbar />
-                <Toolbar />
-      {/* <Grid container spacing={2} justifyContent="center">
-      {productscat.map(products =>  if (products)<Grid item xs={12} sm={6} md="auto" key={products.id}>
-         <Box width={"300px"}>
-                <Card onClick={() => {this.clickhandler(products.id)}} sx={ {height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0}}>
-                    <CardMedia  component="img" height="200" image={products.image}  sx={{ objectFit: "contain", p: 2 }}/>
-                    <CardContent sx={{flexGrow:1}}>
-                  <Typography variant='h6' >{products.title.substring(0,40)}</Typography>
-                  <Typography variant='body1' sx={{fontFamily:"sans-serif", fontWeight:"bold"}}>₹.{products.price}</Typography>
-                  
-</CardContent>
-           <CardActions sx={{justifyContent:"center",mb:"5px"}}>
-                <Button variant="contained" size="small">Add to cart</Button>
-            </CardActions>
-                </Card>
-            </Box>
+        <Searchbar />
+        <Toolbar />
+        {categories.map((category) => (
+          <Box key={category.name} sx={{ my: 4, px: 4 }}>
+            <Typography
+              variant="h5"
+              sx={{ mb: 2, fontWeight: 'bold', textTransform: 'capitalize' }}
+            >
+              {category.name}
+            </Typography>
+
+            <Grid container spacing={2} justifyContent="center">
+  {category.items.slice(0, 4).map((product) => (
+    <Grid item xs={12} sm={6} md={3} key={product.id}>
+      <Box>
+        <Card
+          onClick={() => this.clickhandler(product.id)}
           
-      </Grid>)}
-      </Grid> */}
+            sx={ { height: 400, width:280, display: "flex", 
+              flexDirection: "column",justifyContent: "space-between",pt:0,pb:0
+          }}
+        >
+          <CardMedia component="img" height="200" image={product.image}  sx={{ objectFit: "contain", p: 2 }}/>
+          <CardContent sx={{flexGrow:1}}>
+                            <Typography variant='h6' >{product.title.substring(0,40)}</Typography>
+                            <Typography variant='body1' sx={{fontFamily:"sans-serif", fontWeight:"bold"}}>₹.{product.price}</Typography>
+                            
+          </CardContent>
+      
+        </Card>
+      </Box>
+    </Grid>
+  ))}
+</Grid>
+
+          </Box>
+        ))}
       </>
-    )
+    );
   }
 }
 
-export default Homepage 
+export default Homepage;
