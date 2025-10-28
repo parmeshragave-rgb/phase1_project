@@ -20,9 +20,8 @@ class Navbar extends Component {
                     </Typography>
 
           <Stack spacing={2} direction="row">
-            <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Home</Button>
+            <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.props.navigate('/')}>Home</Button>
             <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={this.navhandler}>Shop</Button>
-            <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Account</Button>
             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Cart</Button>
             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Catagerios</Button>
             

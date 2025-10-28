@@ -22,7 +22,9 @@ class Product extends Component {
      .then(res => {
         this.setState({
             products:res.data
+
         })
+        console.log(res.data)
      })
      .catch(error => console.log(error))
     }
@@ -30,13 +32,12 @@ class Product extends Component {
     const{products}=this.state;
     return (
       <>
-      <Toolbar />
        <Searchbar/>
                 <Toolbar />
       <Grid container spacing={2} justifyContent="center">
       {products.map(products =>  <Grid item xs={12} sm={6} md="auto" key={products.id}>
          <Box width={"300px"}>
-                <Card onClick={() => {this.clickhandler(products.id)}} sx={ {height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0}}>
+                <Card onClick={() => {this.clickhandler(products.id)}}  sx={ {height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
                     <CardMedia  component="img" height="200" image={products.image}  sx={{ objectFit: "contain", p: 2 }}/>
                     <CardContent sx={{flexGrow:1}}>
                   <Typography variant='h6' >{products.title.substring(0,40)}</Typography>

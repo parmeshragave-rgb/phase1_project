@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Box, Toolbar } from "@mui/material";
 import Navbar from "./Navbar";
+import { Outlet } from "react-router-dom";
 
 
 class Layout extends Component {
@@ -9,12 +10,7 @@ class Layout extends Component {
     return (
       <>
         <Navbar/>
-        <Box component="main" sx={{flexGrow: 1,p: 3}}>
-                <Toolbar />
-               
-
-            {this.props.children}
-        </Box>
+        
        </>
          
         

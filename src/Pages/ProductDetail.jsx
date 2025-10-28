@@ -30,16 +30,17 @@ componentDidMount(){
 }
     return (
    <Box sx={{ mt: 10, p: 4 }}>
-      <Grid container spacing={4}>
-          <Grid item xs={12} md={12}>
+      <Grid container spacing={4} sx={{flexDirection:{xs: "column", md: "row" }}} >
+
+          <Grid item xs={12} md={6} >
                <CardMedia
         component="img"
         image={product.image}
-        sx={{  height: 400, objectFit: "contained" }}
+        sx={{height: 400, objectFit: "contained",width:"auto"}}
       />
     </Grid>
 
-    <Grid item xs={12} md={7}>
+    <Grid item xs={12} md={6}>
       <Typography variant="h5" gutterBottom>{product.title}</Typography>
       <Typography variant="subtitle1" gutterBottom>
         {product.category.toUpperCase()}
