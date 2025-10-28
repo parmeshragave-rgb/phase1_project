@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { useNavigate } from "react-router-dom";
 
 class Navbar extends Component {
+   navhandler = () =>{
+    this.props.navigate('/products');
+   }
+
   render() {
     return (
       <AppBar position="fixed">
@@ -16,7 +21,7 @@ class Navbar extends Component {
 
           <Stack spacing={2} direction="row">
             <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Home</Button>
-            <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Shop</Button>
+            <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={this.navhandler}>Shop</Button>
             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Account</Button>
             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Cart</Button>
             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Catagerios</Button>
@@ -27,5 +32,9 @@ class Navbar extends Component {
     );
   }
 }
+function NavWrapper(){
+const navigate=useNavigate()
+return (<Navbar navigate={navigate}/>)
 
-export default Navbar;
+}
+export default NavWrapper

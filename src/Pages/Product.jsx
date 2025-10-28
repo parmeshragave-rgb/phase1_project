@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
-import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography, Stack,Button} from '@mui/material'
+import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,Button} from '@mui/material'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
+import Searchbar from '../Components/Searchbar';
+
 class Product extends Component {
     constructor(props) {
       super(props)
@@ -8,6 +11,10 @@ class Product extends Component {
       this.state = {
           products:[]
       }
+    }
+
+    clickhandler = (id) => {
+            this.props.navigate(`/product/${id}`)
     }
 
     componentDidMount(){
@@ -23,10 +30,13 @@ class Product extends Component {
     const{products}=this.state;
     return (
       <>
+      <Toolbar />
+       <Searchbar/>
+                <Toolbar />
       <Grid container spacing={2} justifyContent="center">
-      {products.map(products =>  <Grid item xs={12} sm={6} direction={"row"} key={products.id}>
+      {products.map(products =>  <Grid item xs={12} sm={6} md="auto" key={products.id}>
          <Box width={"300px"}>
-                <Card sx={{height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0}}>
+                <Card onClick={() => {this.clickhandler(products.id)}} sx={ {height: 400,  display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0}}>
                     <CardMedia  component="img" height="200" image={products.image}  sx={{ objectFit: "contain", p: 2 }}/>
                     <CardContent sx={{flexGrow:1}}>
                   <Typography variant='h6' >{products.title.substring(0,40)}</Typography>
@@ -45,4 +55,9 @@ class Product extends Component {
     )
   }
 }
-export default  Product
+function ProductWrapper(){
+const navigate=useNavigate()
+return (<Product navigate={navigate}/>)
+
+}
+export default ProductWrapper
