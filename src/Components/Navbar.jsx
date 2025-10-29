@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { AppBar, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
+import { AppBar, Badge, Button, IconButton, Stack, Toolbar, Typography } from '@mui/material';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { useNavigate } from "react-router-dom";
+import LoginIcon from '@mui/icons-material/Login';
+
+
 
 class Navbar extends Component {
    navhandler = () =>{
@@ -22,9 +25,8 @@ class Navbar extends Component {
           <Stack spacing={2} direction="row">
             <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.props.navigate('/')}>Home</Button>
             <Button variant="text" color='inherit' sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={this.navhandler}>Shop</Button>
-            <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Cart</Button>
-            <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Catagerios</Button>
-            
+           <Badge> <IconButton size="medium" color="inherit" onClick={ () => { this.props.navigate('/cart');}}><ShoppingCartIcon /></IconButton></Badge>
+             <Button variant="text" color='inherit'sx={{fontFamily:"sans-serif",fontWeight:"bold"}}><LoginIcon/> Login</Button>
           </Stack>
         </Toolbar>
       </AppBar>

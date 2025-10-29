@@ -1,16 +1,7 @@
 import React, { Component } from 'react';
-import Searchbar from '../Components/Searchbar';
-import {
-  Toolbar,
-  Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  CardActions,
-  Typography,
-  Box,
-  Button,
-} from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import {Toolbar,Grid,Card,CardMedia,CardContent,CardActions,Typography,Box,
+  Button,TextField,ButtonGroup,Paper} from '@mui/material';
 import axios from 'axios';
 
 class Homepage extends Component {
@@ -40,7 +31,7 @@ class Homepage extends Component {
           items: categoryMap[cat],
         }));
 
-        this.setState({ categories });
+        this.setState({ categories:categories});
       })
       .catch((err) => alert(`Error: ${err}`));
   }
@@ -54,15 +45,23 @@ class Homepage extends Component {
 
     return (
       <>
-        <Searchbar />
-        <Toolbar />
+        
+        <Box sx={{ px: 4, mb: 3 ,mt:"135px",justifyContent:"center"}} width="100%">
+        
+          <ButtonGroup sx={{justifyContent:"center"}}>
+            <TextField variant='outlined' placeholder='Search for Products,Brands and More' type='search' size='medium' color='inherit' sx={{width:"400px",borderRadius:"50px"}}/>
+             <Button variant='contained' color='inherit' ><SearchIcon/></Button>
+             </ButtonGroup>
+            
+             </Box>
+      
         {categories.map((category) => (
           <Box key={category.name} sx={{ my: 4, px: 4 }}>
             <Typography
               variant="h5"
-              sx={{ mb: 2, fontWeight: 'bold', textTransform: 'capitalize' }}
+              sx={{ mb: 2, fontWeight: 'bold',fontFamily:"sans-serif"}}
             >
-              {category.name}
+              {category.name.toUpperCase()}
             </Typography>
 
             <Grid container spacing={2} justifyContent="center">

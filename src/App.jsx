@@ -4,6 +4,7 @@ import Product from './Pages/Product'
 import ProductDetail from './Pages/ProductDetail';
 import Homepage from './Pages/Homepage';
 import { BrowserRouter,Route,Routes } from "react-router-dom";
+import Cart from './Pages/Cart';
 
 function App() 
 
@@ -16,6 +17,8 @@ function App()
            <Route path="/" element={<Homepage />} />
            <Route path="products" element={<Product/>}></Route>
             <Route path="/product/:id" element={<ProductDetail/>} />
+           <Route path="cart" element={<Cart/>} />
+
       </Routes>
  {/* </Layout>       */}
 </BrowserRouter>
