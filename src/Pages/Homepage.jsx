@@ -239,7 +239,7 @@ class Homepage extends Component {
                 
                 }}
               >
-                {category.name}
+                {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
               </Typography>
 
               <Grid container spacing={3} justifyContent="center">
@@ -253,7 +253,7 @@ class Homepage extends Component {
                       <Card
                         onClick={() => this.clickhandler(product.id)}
                         sx={{
-                          height: 400,
+                          height: 350,
                           width: 280,
                           display: 'flex',
                           flexDirection: 'column',

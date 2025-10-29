@@ -3,7 +3,8 @@ import { useNavigate ,useParams} from "react-router-dom";
 import axios from 'axios'
 import { Box, CardContent, CardMedia,Typography,Card,Grid,Button,Stack } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import ReplyIcon from '@mui/icons-material/Reply';
+import ReplyIcon from '@mui/icons-material/Reply'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 class ProductDetail extends Component {
   constructor(props) {
     super(props)
@@ -134,7 +135,7 @@ componentDidMount(){
             "&:hover": { bgcolor: "#e0e0e0" },
           }}
         >
-          <ReplyIcon />
+          <ArrowBackIcon sx={{mr:"10px"}}/> Back
         </Button>
       </Stack>
     </Box>
