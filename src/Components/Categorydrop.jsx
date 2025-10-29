@@ -31,8 +31,7 @@ class Categorydrop extends Component {
         const{categories}=this.state
     return (
         <>
-        <Toolbar/>
-      <Toolbar/>
+        
                 <Paper elevation={4}>
       <Box sx={{p:"5px" ,width:"200px"}}>
         <FormControl fullWidth>

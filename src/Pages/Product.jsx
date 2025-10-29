@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,Button,ButtonGroup,Paper,TextField, Pagination} from '@mui/material'
+import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,Button,ButtonGroup,Paper,TextField, Pagination, InputAdornment} from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import Categorydrop from '../Components/Categorydrop';
 import SearchIcon from '@mui/icons-material/Search';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 class Product extends Component {
     constructor(props) {
@@ -79,7 +80,7 @@ addtocart = (product) => {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${product.title.substring(0, 20)} added to cart!`);
+    console.log(`${product.title.substring(0, 20)} added to cart!`);
   };
 
 handlePageChange = (event, value) => {
@@ -96,36 +97,47 @@ handlePageChange = (event, value) => {
     return (
       <>
       
-<Box sx={{ px: 4, mb: 3 }}>      
-  <Grid container justifyContent="space-between" spacing={2}>
-    <Grid item xs={12} md={6} lg={8} sx={{mt:"135px"}}>
-       <Paper elevation={2}>
-          <ButtonGroup>
-            <TextField onChange={this.handlesearchchange} variant='outlined' placeholder='Search for Products,Brands and More' type='search' size='medium' color='inherit' sx={{width:"400px",borderRadius:"50px"}}/>
-             <Button variant='contained' color='inherit' ><SearchIcon/></Button>
-             </ButtonGroup>
-             </Paper>
+
+<Box sx={{ px: 2, mt: "120px" }}>
+  <Grid container spacing={2} alignItems="center" justifyContent="space-around">
+    <Grid item xs={12} sm={8} md={8} lg={8}>
+      <Paper  elevation={2} sx={{display: "flex",alignItems: "center",p: 1,borderRadius: "50px",width: "100%",}}>
+        
+        <TextField onChange={this.handlesearchchange} variant="outlined" placeholder="Search for Products, Brands and More" type="search" fullWidth 
+         InputProps={{startAdornment:(
+          <InputAdornment position='start'><SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} /></InputAdornment>
+         )}}
+         sx={{'& .MuiOutlinedInput-root': {
+                  borderRadius: '50px',
+                  backgroundColor: '#fff',
+                  border: 'none',
+                  '& fieldset': { border: 'none' }, 
+                  '&:hover fieldset': { border: 'none' },
+                  '&.Mui-focused fieldset': { border: 'none' },}}}/>
+      </Paper>
     </Grid>
 
-    <Grid item xs={12} md="auto">
+  
+    <Grid item xs={12} sm={4} md={3} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
       <Categorydrop oncatchange={this.handlecatchange} />
     </Grid>
   </Grid>
 </Box>
+
 <Toolbar />
 
 <Grid container spacing={2} justifyContent="center">
       {currentProducts.map(products =>  <Grid item xs={12} sm={6} md={3}  lg={3} key={products.id}>
          <Box>
                 <Card   sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
-                    <CardMedia  component="img" height="200" image={products.image}  sx={{ objectFit: "contain", p: 2 }}/>
-                    <CardContent sx={{flexGrow:1}}>
+                    <CardMedia  component="img" height="200" width="100" image={products.image}  sx={{ objectFit: "contain", p: 2}}   onClick={() => {this.clickhandler(products.id)}}/>
+                    <CardContent sx={{flexGrow:1}}  onClick={() => {this.clickhandler(products.id)}}>
                   <Typography variant='h6' >{products.title.substring(0,40)}</Typography>
                   <Typography variant='body1' sx={{fontFamily:"sans-serif", fontWeight:"bold"}}>₹.{products.price}</Typography>
                   
 </CardContent>
            <CardActions sx={{justifyContent:"center",mb:"5px"}}>
-                <Button variant="contained" size="small" onClick={() => this.addtocart(products)}>Add to cart</Button>
+                <Button variant="contained" size="small" onClick={() => this.addtocart(products)}><AddShoppingCartIcon/></Button>
             </CardActions>
                 </Card>
             </Box>
@@ -155,4 +167,3 @@ return (<Product navigate={navigate}/>)
 
 }
 export default ProductWrapper
-//onClick={() => {this.clickhandler(products.id)}}
