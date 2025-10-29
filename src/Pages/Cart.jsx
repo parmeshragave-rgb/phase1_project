@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {Box, Grid, Card, CardMedia, CardContent, Typography, Button, CardActions} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 class Cart extends Component {
   constructor(props) {
@@ -43,8 +44,8 @@ class Cart extends Component {
 
     return (
       <Box sx={{ p: 4,mt:"80px"}}>
-        <Typography variant="h4" sx={{ mb: 3 }}>
-          Your Cart
+        <Typography variant="h4" sx={{ mb: 3,fontFamily:"sans-serif",fontWeight:"bold"}}>
+          <ShoppingCartIcon sx={{mt:"5px"}}/> Your Cart
         </Typography>
 
         {cart.length === 0 ? (
@@ -82,7 +83,7 @@ class Cart extends Component {
 
             <Box sx={{ mt: 4, textAlign: "right" }}>
               <Typography variant="h5">Total: ₹ {total.toFixed(2)}</Typography>
-              <Button variant="contained" sx={{ mt: 2 }}>
+              <Button variant="contained" sx={{ mt: 2,bgcolor:"#00004d",color:"whitesmoke",fontFamily:"sans-serif",fontWeight:"bold"}}>
                 Checkout
               </Button>
             </Box>

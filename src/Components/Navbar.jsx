@@ -32,16 +32,16 @@ class Navbar extends Component {
       </Box>
       <Divider/>
   <List sx={{}}>
-    <ListItem button onClick={() => this.props.navigate("/")}>
+    <ListItem button onClick={() => this.props.navigate("/")} sx={{cursor:"pointer"}}>
              <HomeIcon  sx={{ mr: 1 }}/><ListItemText primary="Home" sx={{fontFamily: "sans-serif", fontWeight: "bold"}}/>
     </ListItem>
-      <ListItem button onClick={this.navhandler}>
+      <ListItem button onClick={this.navhandler} sx={{cursor:"pointer"}}>
           <ShoppingCartCheckoutIcon sx={{ mr: 1 }} /> <ListItemText primary="Shop"  sx={{fontFamily: "sans-serif", fontWeight: "bold"}} />
        </ListItem>
-    <ListItem button onClick={() => this.props.navigate("/cart")}>
+    <ListItem button onClick={() => this.props.navigate("/cart")} sx={{cursor:"pointer"}}>
             <ShoppingCartIcon sx={{ mr: 1 }} /><ListItemText primary="Cart"  sx={{fontFamily: "sans-serif", fontWeight: "bold"}}/>
           </ListItem>
-          <ListItem button onClick={() => this.props.navigate("/login")}>
+          <ListItem button onClick={() => this.props.navigate("/login")} sx={{cursor:"pointer"}}>
             <LoginIcon sx={{ mr: 1 }} /> <ListItemText primary="Login" />
           </ListItem>
         </List>

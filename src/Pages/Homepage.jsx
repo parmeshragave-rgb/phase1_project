@@ -91,6 +91,9 @@ class Homepage extends Component {
         >
           <Box
             sx={{
+              overflowX:"hidden",
+              width:"100%",
+              zoom:"none",
               px: 4,
               mb: 3,
               mt: '135px',
@@ -143,28 +146,33 @@ class Homepage extends Component {
 
         
         <Box
-          sx={{
-            width: "100%",
-            overflow: "hidden",
-            my: 6,
-            position: "relative",
-            backgroundColor: "#fafafa",
-            py: 2,
-          }}
-        >
-          <motion.div
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{
-              repeat: Infinity,
-              repeatType: "loop",
-              duration: 90, 
-              ease: "linear",
-            }}
-            style={{
-              display: "flex",
-              width: "max-content",
-            }}
-          >
+  sx={{
+    width: "100%",
+    overflowX: "hidden", 
+    overflowY: "visible",
+    my: 6,
+    position: "relative",
+    backgroundColor: "#fafafa",
+    py: 2,
+  }}
+>
+  <motion.div
+    animate={{ x: ["0%", "-50%"] }}
+    transition={{
+      repeat: Infinity,
+      repeatType: "loop",
+      duration: 90, 
+      ease: "linear",
+    }}
+    style={{
+      display: "flex",
+      width: "max-content",
+      willChange: "transform", 
+      margin: 0,
+      padding: 0,
+    }}
+  >
+
             {[
               ...this.state.categories.flatMap((cat) => cat.items).slice(0, 15),
               ...this.state.categories.flatMap((cat) => cat.items).slice(0, 15),
@@ -228,10 +236,10 @@ class Homepage extends Component {
                   mb: 2,
                   fontWeight: 'bold',
                   fontFamily: 'sans-serif',
-                  fontStyle: 'italic',
+                
                 }}
               >
-                {category.name.toUpperCase()}
+                {category.name}
               </Typography>
 
               <Grid container spacing={3} justifyContent="center">

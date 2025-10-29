@@ -103,7 +103,7 @@ handlePageChange = (event, value) => {
     <Grid item xs={12} sm={8} md={8} lg={8}>
       <Paper  elevation={2} sx={{display: "flex",alignItems: "center",p: 1,borderRadius: "50px",width: "100%",}}>
         
-        <TextField onChange={this.handlesearchchange} variant="outlined" placeholder="Search for Products, Brands and More" type="search" fullWidth 
+        <TextField onChange={this.handlesearchchange} variant="outlined" placeholder="Search" type="search" fullWidth 
          InputProps={{startAdornment:(
           <InputAdornment position='start'><SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} /></InputAdornment>
          )}}
@@ -129,7 +129,7 @@ handlePageChange = (event, value) => {
 <Grid container spacing={2} justifyContent="center">
       {currentProducts.map(products =>  <Grid item xs={12} sm={6} md={3}  lg={3} key={products.id}>
          <Box>
-                <Card   sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
+                <Card sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
                     <CardMedia  component="img" height="200" width="100" image={products.image}  sx={{ objectFit: "contain", p: 2}}   onClick={() => {this.clickhandler(products.id)}}/>
                     <CardContent sx={{flexGrow:1}}  onClick={() => {this.clickhandler(products.id)}}>
                   <Typography variant='h6' >{products.title.substring(0,40)}</Typography>
@@ -137,7 +137,7 @@ handlePageChange = (event, value) => {
                   
 </CardContent>
            <CardActions sx={{justifyContent:"center",mb:"5px"}}>
-                <Button variant="contained" size="small" onClick={() => this.addtocart(products)}><AddShoppingCartIcon/></Button>
+                <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{bgcolor:"#00004d"}}><AddShoppingCartIcon/></Button>
             </CardActions>
                 </Card>
             </Box>
@@ -151,8 +151,9 @@ handlePageChange = (event, value) => {
       count={totalPages}
               page={currentPage}
               onChange={this.handlePageChange}
-              color="primary"
+              sx={{color:"#00004d"}}
               shape="rounded"
+              
 
       />
       </Box>
