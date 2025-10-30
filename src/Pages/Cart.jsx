@@ -11,7 +11,7 @@ class Cart extends Component {
   }
 
   updateCart = (cart) => {
-    this.setState({ cart });
+    this.setState({ cart:cart});
     localStorage.setItem("cart", JSON.stringify(cart));
   };
 
@@ -25,7 +25,7 @@ class Cart extends Component {
   decreaseQty = (id) => {
     const cart = this.state.cart
       .map((item) =>
-        item.id === id && item.quantity >= 1
+        item.id === id && item.quantity > 1
           ? { ...item, quantity: item.quantity - 1 }
           : item
       )
@@ -55,7 +55,7 @@ class Cart extends Component {
             <Grid container spacing={2}>
               {cart.map((item) => (
                 <Grid item xs={12} md={6} lg={4} key={item.id}>
-                  <Card  sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
+                  <Card  sx={ {height: 350, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
                     <CardMedia
                       component="img"
                       height="150"
@@ -67,10 +67,11 @@ class Cart extends Component {
                         {item.title.substring(0, 30)}
                       </Typography>
                       <Typography>₹ {item.price}</Typography>
-                      <Typography>Qty: {item.quantity}</Typography>
+                      
                     </CardContent>
                     <CardActions>
                       <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.increaseQty(item.id)}>+</Button>
+                      <Typography sx={{fontFamily:"sans-serif",fontWeight:"bold",color:"green"}}>{item.quantity}</Typography>
                       <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.decreaseQty(item.id)}>-</Button>
                       <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} color="error" onClick={() => this.removeItem(item.id)}>
                         Remove

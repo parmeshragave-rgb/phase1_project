@@ -17,6 +17,14 @@ class Navbar extends Component {
     };
   }
 
+  componentDidUpdate() {
+  const token = localStorage.getItem("token");
+  if (!!token !== this.state.isLoggedIn) {
+    this.setState({ isLoggedIn: !!token });
+  }
+}
+
+
   navhandler = () => {
     this.props.navigate("/products");
   };
@@ -77,17 +85,22 @@ class Navbar extends Component {
       <>
         <AppBar position="fixed" sx={{ bgcolor: "#00004d" }}>
           <Toolbar>
-            <Typography
+            
+             <Box onClick={() => this.props.navigate("/")}>
+           <Typography 
               variant="h5"
               sx={{
-                flexGrow: 1,
                 fontFamily: "sans-serif",
                 fontWeight: "bold",
                 color: "whitesmoke",
+                cursor:"pointer"
               }}
             >
               ECommerce.
             </Typography>
+            </Box>
+            <Box  sx={{flexGrow: 1,}}>
+            </Box>
 
             <Stack
               direction="row"
@@ -96,6 +109,7 @@ class Navbar extends Component {
                 display: { xs: "none", md: "flex" },
                 alignItems: "center",
                 color: "whitesmoke",
+                
               }}
             >
               <Button
@@ -141,7 +155,7 @@ class Navbar extends Component {
             <IconButton
               sx={{ display: { xs: "block", md: "none" } }}
               color="inherit"
-              onClick={this.handleDrawerToggle}
+               onMouseEnter={this.handleDrawerToggle}
             >
               <MenuIcon />
             </IconButton>
@@ -151,7 +165,7 @@ class Navbar extends Component {
         <Drawer
           anchor="right"
           open={mobileOpen}
-          onClose={this.handleDrawerToggle}
+          onMouseLeave={this.handleDrawerToggle}
           sx={{ display: { xs: "block", md: "none" } }}
         >
           {drawer}

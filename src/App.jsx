@@ -31,7 +31,7 @@ function App()
 <BrowserRouter>
 <Layout/> 
       <Routes>
-           <Route path="/" element={ <Box sx={{width:"100%",overflowX:"hidden"}}><Homepage /></Box>}  />
+           <Route path="/" element={<Box sx={{width:"100%",overflowX:"hidden" }}><Homepage /></Box> }  />
            <Route path="products" element={<Product/>}></Route>
             <Route path="/product/:id" element={<ProductDetail/>} />
            <Route path="cart" element={<Cart/>} />

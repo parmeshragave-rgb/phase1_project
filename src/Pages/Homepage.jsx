@@ -106,7 +106,7 @@ class Homepage extends Component {
                   <Card
                     onClick={() => this.clickhandler(product.id)}
                     sx={{
-                      height: 350,
+                      height: 300,
                       width: 250,
                       display: "flex",
                       flexDirection: "column",
@@ -115,11 +115,13 @@ class Homepage extends Component {
                       boxShadow: 4,
                       borderRadius: 3,
                       backgroundColor: "#fff",
+                      alignItems: "center",
+                
                     }}
                   >
                     <CardMedia
                       component="img"
-                      height="200"
+                      height="160"
                       image={product.image}
                       sx={{
                         objectFit: "contain",
@@ -127,9 +129,11 @@ class Homepage extends Component {
                       }}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography variant="h6">
-                        {product.title.substring(0, 30)}
+                      <Typography variant="h6" sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>
+                        {product.title.substring(0,20)}
                       </Typography>
+                      </CardContent>
+                      <CardContent sx={{ flexGrow: 1 }}>
                       <Typography
                         variant="body1"
                         sx={{

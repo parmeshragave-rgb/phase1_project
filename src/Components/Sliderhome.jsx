@@ -22,7 +22,7 @@ class Sliderhome extends Component {
       pauseOnHover: true,
       responsive: [
         { breakpoint: 1200, settings: { slidesToShow: 3 } },
-        { breakpoint: 900, settings: { slidesToShow: 2 } },
+        { breakpoint: 900, settings: { slidesToShow: 1} },
         { breakpoint: 600, settings: { slidesToShow: 1 } },
       ],
     };
@@ -59,7 +59,7 @@ class Sliderhome extends Component {
                 alignItems: "center",
                 cursor: "pointer",
                 borderRadius: 3,
-                boxShadow: 4,
+                // boxShadow: 4,
                 backgroundColor: "#fff",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.05)" },
@@ -76,6 +76,7 @@ class Sliderhome extends Component {
                   p: 2,
                 }}
               />
+
               <CardContent sx={{ textAlign: "center" }}>
                 <Typography variant="body1" noWrap>
                   {product.title.substring(0, 20)}
