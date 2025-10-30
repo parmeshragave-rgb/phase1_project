@@ -107,7 +107,7 @@ class Homepage extends Component {
                     onClick={() => this.clickhandler(product.id)}
                     sx={{
                       height: 350,
-                      width: 280,
+                      width: 250,
                       display: "flex",
                       flexDirection: "column",
                       justifyContent: "space-between",
@@ -128,7 +128,7 @@ class Homepage extends Component {
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography variant="h6">
-                        {product.title.substring(0, 40)}
+                        {product.title.substring(0, 30)}
                       </Typography>
                       <Typography
                         variant="body1"
