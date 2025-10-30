@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { useNavigate ,useParams} from "react-router-dom";
 import axios from 'axios'
-import { Box, CardContent, CardMedia,Typography,Card,Grid,Button,Stack } from '@mui/material';
+import { Box, CardContent, CardMedia,Typography,Card,Grid,Button,Stack,Snackbar} from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ReplyIcon from '@mui/icons-material/Reply'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 class ProductDetail extends Component {
   constructor(props) {
     super(props)
   
     this.state = {
-         product:{}
+         product:{},
+         openSnackbar: false
     }
   }
 
@@ -36,8 +38,14 @@ componentDidMount(){
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(`${product.title.substring(0, 20)} added to cart!`);
+    this.setState({ openSnackbar: true });
   };
+
+  handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    this.setState({ openSnackbar: false });
+  };
+
 
   render() {
     const {product}=this.state
@@ -94,7 +102,7 @@ componentDidMount(){
       </Typography>
 
       <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
-        $ {product.price}
+        ₹ {product.price}
       </Typography>
 
       <Stack direction="row" spacing={2}>
@@ -140,6 +148,14 @@ componentDidMount(){
       </Stack>
     </Box>
   </Card>
+
+  <Snackbar
+             open={this.state.openSnackbar}
+              autoHideDuration={2500}
+               onClose={this.handleCloseSnackbar}
+               message="Item added to cart successfully!"
+               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+  />
 </Box>
 
 

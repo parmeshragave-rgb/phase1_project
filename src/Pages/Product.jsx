@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,Button,ButtonGroup,Paper,TextField, Pagination, InputAdornment} from '@mui/material'
+import { Grid,Card,CardMedia,CardActions, Box, CardContent,Typography,Toolbar ,Button,ButtonGroup,Paper,TextField, Pagination, InputAdornment,Snackbar,Alert} from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import Categorydrop from '../Components/Categorydrop';
@@ -15,8 +15,9 @@ class Product extends Component {
           searchQuery: '',
           allProducts: [],
           currentPage: 1,
-          productsPerPage: 8
-
+          productsPerPage: 8,
+          openSnackbar: false,
+          noresult:false
       }
     }
 
@@ -61,13 +62,28 @@ class Product extends Component {
   this.debounceTimer = setTimeout(() => {
     const { allProducts } = this.state;
 
+    if (value.trim() === "") {
+      this.setState({
+        products: allProducts,
+        noresult: false,
+      });
+      return;
+    }
     const filtered = allProducts.filter((p) =>
       p.title.toLowerCase().includes(value)
     );
+          
+    this.setState({
+      products: filtered,
+      noresult: filtered.length === 0 ? true : false,
+    });
 
-    this.setState({ products: filtered });
   }, 500);
+       
+
 };
+
+
 
 addtocart = (product) => {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -80,7 +96,12 @@ addtocart = (product) => {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    console.log(`${product.title.substring(0, 20)} added to cart!`);
+     this.setState({ openSnackbar: true });
+  };
+
+   handleCloseSnackbar = (event, reason) => {
+    if (reason === "clickaway") return;
+    this.setState({ openSnackbar: false });
   };
 
 handlePageChange = (event, value) => {
@@ -127,6 +148,7 @@ handlePageChange = (event, value) => {
 <Toolbar />
 
 <Grid container spacing={2} justifyContent="center">
+      {this.state.noresult && <h1> No matches found</h1>}
       {currentProducts.map(products =>  <Grid item xs={12} sm={6} md={3}  lg={3} key={products.id}>
          <Box>
                 <Card sx={ {height: 400, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
@@ -138,12 +160,19 @@ handlePageChange = (event, value) => {
 </CardContent>
            <CardActions sx={{justifyContent:"center",mb:"5px"}}>
                 <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{bgcolor:"#00004d"}}><AddShoppingCartIcon/></Button>
+                
+            
+            
             </CardActions>
                 </Card>
+
             </Box>
           
       </Grid>)}
       </Grid>
+
+
+       
      
      {products.length>0 && (
       <Box  sx={{ display: 'flex', justifyContent: 'center', mt: 4 ,mb:4}}>
@@ -158,6 +187,14 @@ handlePageChange = (event, value) => {
       />
       </Box>
      )}
+
+        <Snackbar
+           open={this.state.openSnackbar}
+            autoHideDuration={2500}
+             onClose={this.handleCloseSnackbar}
+             message="Item added to cart successfully!"
+             anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+/>
       </>
     )
   }

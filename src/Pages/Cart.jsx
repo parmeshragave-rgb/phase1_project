@@ -70,9 +70,9 @@ class Cart extends Component {
                       <Typography>Qty: {item.quantity}</Typography>
                     </CardContent>
                     <CardActions>
-                      <Button onClick={() => this.increaseQty(item.id)}>+</Button>
-                      <Button onClick={() => this.decreaseQty(item.id)}>-</Button>
-                      <Button color="error" onClick={() => this.removeItem(item.id)}>
+                      <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.increaseQty(item.id)}>+</Button>
+                      <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.decreaseQty(item.id)}>-</Button>
+                      <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} color="error" onClick={() => this.removeItem(item.id)}>
                         Remove
                       </Button>
                     </CardActions>
@@ -82,10 +82,7 @@ class Cart extends Component {
             </Grid>
 
             <Box sx={{ mt: 4, textAlign: "right" }}>
-              <Typography variant="h5">Total: ₹ {total.toFixed(2)}</Typography>
-              <Button variant="contained" sx={{ mt: 2,bgcolor:"#00004d",color:"whitesmoke",fontFamily:"sans-serif",fontWeight:"bold"}}>
-                Checkout
-              </Button>
+              <Typography variant="h5" color="success" sx={{fontFamily:"sans-serif",fontWeight:"bold"}}>Total: ₹ {total.toFixed(2)}</Typography>
             </Box>
           </>
         )}

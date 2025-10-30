@@ -36,7 +36,7 @@ class Login extends Component {
           this.setState({ message: "Login failed! Please check your details." });
         });
     } else {
-     axios.post("https://fakestoreapi.com/users", username, email, password)
+     axios.post("https://fakestoreapi.com/users", {username, email, password})
         .then((res) => {
           console.log("User added:", res.data);
           this.setState({
@@ -83,13 +83,17 @@ class Login extends Component {
         <Stack spacing={2}>
               {!isLogin && (
                 <TextField label="Email" name="email" value={email} onChange={this.handleChange} fullWidth required
+                    helperText={!email ? "Email is required" : ""}
                 />
               )}
 
-          <TextField label="Username" name="username" value={username} onChange={this.handleChange}fullWidthrequired
-              />
+          <TextField label="Username" name="username" value={username} onChange={this.handleChange} fullWidth  required
+               helperText={!username ? "Username is required" : ""}/>
 
-        <TextField label="Password" type="password" name="password" value={password} onChange={this.handleChange} fullWidth  required/>
+        <TextField label="Password" type="password" name="password" value={password} 
+        onChange={this.handleChange} 
+        helperText={!password ? "Password is required" : ""}
+        fullWidth  required/>
 
          <Button variant="contained" type="submit" fullWidth sx={{borderRadius: "50px", bgcolor: "#00004d", fontFamily:"sans-serif",color: "whitesmoke"}}>
                 {isLogin ? "Login" : "Sign Up"}
@@ -114,10 +118,10 @@ class Login extends Component {
   }
 }
 
-// wrapper function instead of withRouter
-function WrapperLogin(props) {
+
+function WrapperLogin() {
   const navigate = useNavigate();
-  return <Login {...props} navigate={navigate} />;
+  return <Login navigate={navigate} />;
 }
 
 export default WrapperLogin;

@@ -6,7 +6,8 @@ import Homepage from './Pages/Homepage';
 import { BrowserRouter,Route,Routes } from "react-router-dom";
 import Cart from './Pages/Cart';
 import Login from './Pages/Login';
-import { Box } from '@mui/material';
+import { Box ,Toolbar} from '@mui/material';
+import Footer from './Components/Footer';
 
 
 function App() 
@@ -15,8 +16,19 @@ function App()
   return ( 
   <> 
   
+  <Box
+  sx={{
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
+  }}
+>
   
-  <BrowserRouter>
+  
+  <Box sx={{ flex: "1" }}>
+    
+
+<BrowserRouter>
 <Layout/> 
       <Routes>
            <Route path="/" element={ <Box sx={{width:"100%",overflowX:"hidden"}}><Homepage /></Box>}  />
@@ -24,11 +36,14 @@ function App()
             <Route path="/product/:id" element={<ProductDetail/>} />
            <Route path="cart" element={<Cart/>} />
             <Route path="login" element={<Login />} />
-      
-            
       </Routes>
- 
 </BrowserRouter>
+
+</Box>
+  <Footer />
+</Box>
+
+  
 
   </> 
   ) 

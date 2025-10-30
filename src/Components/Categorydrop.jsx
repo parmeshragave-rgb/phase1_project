@@ -40,7 +40,10 @@ class Categorydrop extends Component {
               bgcolor: "#00004d",
               "&:hover": { bgcolor: "#000080" },
               fontFamily:"sans-serif",
-              fontWeight:"bold"
+              fontWeight:"bold",
+               outline: "none",
+                border: "none",  
+                  
             }}
           >
            <FilterListIcon sx={{mr:"10px"}}/>Filter
@@ -53,7 +56,7 @@ class Categorydrop extends Component {
           >
             <MenuItem
               onClick={() => {
-                this.setState({ selectedcat: " ", anchorEl: null });
+                this.setState({ anchorEl: null });
                 this.handlechange({ target: { value: "" } });
               }}
             >
@@ -64,7 +67,7 @@ class Categorydrop extends Component {
               <MenuItem
                 key={cat}
                 onClick={() => {
-                  this.setState({ selectedcat: cat, anchorEl: null });
+                  this.setState({ anchorEl: null });
                   this.handlechange({ target: { value: cat } });
                 }}
               >
