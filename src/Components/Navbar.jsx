@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {List,ListItem,ListItemText,Stack,Toolbar,Typography,AppBar,Badge,Box,Button,Drawer,IconButton,Divider} from "@mui/material";
+import { List, ListItem, ListItemText, Stack, Toolbar, Typography, AppBar, Badge, Box, Button, Drawer, IconButton, Divider } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LoginIcon from "@mui/icons-material/Login";
@@ -7,22 +7,21 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-
 class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
       mobileOpen: window.innerWidth > 600 ? false : true,
-      isLoggedIn: !!localStorage.getItem("token"), 
+      isLoggedIn: !!localStorage.getItem("token"),
     };
   }
 
   componentDidUpdate() {
-  const token = localStorage.getItem("token");
-  if (!!token !== this.state.isLoggedIn) {
-    this.setState({ isLoggedIn: !!token });
+    const token = localStorage.getItem("token");
+    if (!!token !== this.state.isLoggedIn) {
+      this.setState({ isLoggedIn: !!token });
+    }
   }
-}
 
 
   navhandler = () => {
@@ -85,21 +84,21 @@ class Navbar extends Component {
       <>
         <AppBar position="fixed" sx={{ bgcolor: "#00004d" }}>
           <Toolbar>
-            
-             <Box onClick={() => this.props.navigate("/")}>
-           <Typography 
-              variant="h5"
-              sx={{
-                fontFamily: "sans-serif",
-                fontWeight: "bold",
-                color: "whitesmoke",
-                cursor:"pointer"
-              }}
-            >
-              ECommerce.
-            </Typography>
+
+            <Box onClick={() => this.props.navigate("/")}>
+              <Typography
+                variant="h5"
+                sx={{
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  color: "whitesmoke",
+                  cursor: "pointer"
+                }}
+              >
+                ECommerce.
+              </Typography>
             </Box>
-            <Box  sx={{flexGrow: 1,}}>
+            <Box sx={{ flexGrow: 1, }}>
             </Box>
 
             <Stack
@@ -108,26 +107,39 @@ class Navbar extends Component {
               sx={{
                 display: { xs: "none", md: "flex" },
                 alignItems: "center",
-                color: "whitesmoke",
-                
+
+
               }}
             >
               <Button
-                color="inherit"
-                sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}
+                    color="inherit"
+                sx={{
+                  fontFamily: "sans-serif", fontWeight: "bold"
+                }}
                 onClick={() => this.props.navigate("/")}
+
+
               >
                 Home
               </Button>
               <Button
-                color="inherit"
-                sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}
+                    color="inherit"
+
+                sx={{
+                  fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
+                  "&:active": { bgcolor: "whitesmoke", color: "#00004d" },
+                }}
                 onClick={this.navhandler}
               >
                 Shop
               </Button>
 
-              <IconButton color="inherit" onClick={() => this.props.navigate("/cart")}>
+                  
+              <IconButton   color="inherit" sx={{
+                "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
+                "&:active": { bgcolor: "whitesmoke", color: "#00004d" },
+              }}
+                onClick={() => this.props.navigate("/cart")}>
                 <Badge color="error">
                   <ShoppingCartIcon />
                 </Badge>
@@ -135,16 +147,22 @@ class Navbar extends Component {
 
               {isLoggedIn ? (
                 <Button
-                  color="inherit"
-                  sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}
+                  
+                  sx={{
+                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
+                    "&:active": { bgcolor: "whitesmoke", color: "#00004d" }
+                  }}
                   onClick={this.handleLogout}
                 >
                   <LogoutIcon sx={{ mr: 1 }} /> Logout
                 </Button>
               ) : (
                 <Button
-                  color="inherit"
-                  sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}
+                  
+                  sx={{
+                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
+                    "&:active": { bgcolor: "whitesmoke", color: "#00004d" }
+                  }}
                   onClick={() => this.props.navigate("/login")}
                 >
                   <LoginIcon sx={{ mr: 1 }} /> Login
@@ -155,7 +173,7 @@ class Navbar extends Component {
             <IconButton
               sx={{ display: { xs: "block", md: "none" } }}
               color="inherit"
-               onMouseEnter={this.handleDrawerToggle}
+              onMouseEnter={this.handleDrawerToggle}
             >
               <MenuIcon />
             </IconButton>

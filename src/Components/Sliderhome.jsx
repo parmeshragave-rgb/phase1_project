@@ -3,6 +3,7 @@ import Slider from "react-slick";
 import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import tsImage from '../ts.png';
 
 class Sliderhome extends Component {
   render() {
@@ -29,18 +30,26 @@ class Sliderhome extends Component {
 
     return (
       <Box sx={{ width: "100%", mt: 6, px: 3}}>
-             <Box sx={{ textAlign: "center", mt: 5, mb: 2 }}>
-  <Typography
-    variant="h5"
-    sx={{
-      fontWeight: 600,
-      color: "#003366", 
-      fontFamily: "sans-serif",
-      letterSpacing: 1,
-    }}
-  >
-    Top Sellers
-  </Typography>
+        <Box sx={{display:"flex",
+                 justifyContent:"center",}}>
+             <Box component="img"
+               src={tsImage}
+               alt="product"
+               sx={{
+                 height: "110px",
+                 width: {xs:"250px",sm:"300px",md:"450px"},
+                
+                alignContent:"center",
+                 objectFit: "contain",
+                 borderRadius: "8px",
+                 
+                 transition: "all 0.3s ease",
+                 "&:hover": {
+                   transform: "scale(1.05)",
+                 },
+               }}>
+                </Box>
+ 
 </Box>
         <Slider {...settings}>
           {productsslide.map((product) => (
@@ -59,7 +68,7 @@ class Sliderhome extends Component {
                 alignItems: "center",
                 cursor: "pointer",
                 borderRadius: 3,
-                // boxShadow: 4,
+                
                 backgroundColor: "#fff",
                 transition: "transform 0.3s",
                 "&:hover": { transform: "scale(1.05)" },

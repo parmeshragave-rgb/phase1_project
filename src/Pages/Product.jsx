@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Categorydrop from '../Components/Categorydrop';
 import SearchIcon from '@mui/icons-material/Search';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+import Shopcarosalimg from '../Components/Shopcarosalimg';
 
 class Product extends Component {
   constructor(props) {
@@ -109,51 +110,71 @@ class Product extends Component {
 
     return (
       <>
+<Box sx={{display:"flex",justifyContent:"center"}}>
+  <Box
+    sx={{
+      width: { xs: "90%", sm: "80%", md: "70%", lg: "60%" },
+       mt:"120px",
+       alignItems:"center",
+       display:"flex",
+    }}
+  >
+    <Paper
+      elevation={3}
+      sx={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 1,
+        p: { xs: 1, sm: 1.5 },
+        borderRadius: "50px",
+        width: "100%",
+        bgcolor: "rgba(255,255,255,0.25)",
+        backdropFilter: "blur(10px)",
+        boxShadow: 3,
+      }}
+    >
+      <TextField
+        onChange={this.handlesearchchange}
+        variant="outlined"
+        placeholder="Search"
+        type="search"
+        fullWidth
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} />
+            </InputAdornment>
+          ),
+        }}
+        sx={{
+          '& .MuiOutlinedInput-root': {
+            borderRadius: '50px',
+            backgroundColor: 'rgba(255,255,255,0.9)',
+            '& fieldset': { border: 'none' },
+            '&:hover fieldset': { border: 'none' },
+            '&.Mui-focused fieldset': { border: 'none' },
+            transition: "all 0.3s ease",
+            width: "100%",
+          },
+        }}
+      />
 
-
-        <Box sx={{ px: 2, mt: "120px" }}>
-          <Grid container spacing={2} alignItems="center" justifyContent="space-around">
-            <Grid item xs={12} sm={8} md={8} lg={8}>
-              <Paper elevation={2} sx={{ display: "flex", alignItems: "center", p: 1, borderRadius: "50px", width: "100%", }}>
-
-                <TextField onChange={this.handlesearchchange} variant="outlined" placeholder="Search" type="search" fullWidth
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position='start'><SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} /></InputAdornment>
-                    )
-                  }}
-                  sx={{
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: '50px',
-                      backgroundColor: '#fff',
-                      border: 'none',
-                      '& fieldset': { border: 'none' },
-                      '&:hover fieldset': { border: 'none' },
-                      '&.Mui-focused fieldset': { border: 'none' },
-                      width: { xs: "85%", sm: "75%", md: "65%", lg: "50%" }
-                    }
-                  }} />
-              </Paper>
-            </Grid>
-
-
-            <Grid item xs={12} sm={4} md={3} lg={3} sx={{ display: "flex", justifyContent: "center" }}>
-              <Categorydrop oncatchange={this.handlecatchange} />
-            </Grid>
-          </Grid>
-        </Box>
-
-        <Toolbar />
+      <Categorydrop oncatchange={this.handlecatchange} />
+    </Paper>
+  </Box>
+  </Box>
+<Toolbar/>
 
         <Grid container spacing={2} justifyContent="center">
           {this.state.noresult && <h1> No matches found</h1>}
           {currentProducts.map(products => <Grid item xs={12} sm={6} md={3} lg={3} key={products.id}>
             <Box>
               <Card sx={{ height: 400, width: 280, display: "flex", flexDirection: "column", justifyContent: "space-between", cursor: "pointer",alignItems:"center" }}>
-                <CardMedia component="img" height="200" width="100" image={products.image} sx={{ objectFit: "contain", p: 2 }} onClick={() => { this.clickhandler(products.id) }} />
+                <CardMedia component="img" height="160" image={products.image} sx={{ objectFit: "contain", p: 2 }} onClick={() => { this.clickhandler(products.id) }} />
                 <CardContent sx={{ flexGrow: 1 }} onClick={() => { this.clickhandler(products.id) }}>
                   <Typography variant='h6' >{products.title.substring(0, 40)}</Typography>
-                  <Typography variant='body1' sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}>₹.{products.price}</Typography>
+                  <Typography variant='body1' sx={{ fontFamily: "sans-serif", fontWeight: "bold" }}>₹ {products.price}</Typography>
 
                 </CardContent>
                 <CardActions sx={{ justifyContent: "center", mb: "5px" }}>
@@ -203,3 +224,4 @@ function ProductWrapper() {
 
 }
 export default ProductWrapper
+

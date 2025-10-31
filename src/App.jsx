@@ -8,8 +8,8 @@ import Cart from './Pages/Cart';
 import Login from './Pages/Login';
 import { Box ,Toolbar} from '@mui/material';
 import Footer from './Components/Footer';
-
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App() 
 
 { 
