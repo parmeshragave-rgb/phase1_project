@@ -66,11 +66,11 @@ class Navbar extends Component {
           </ListItem>
 
           {isLoggedIn ? (
-            <ListItem button onClick={this.handleLogout} sx={{ cursor: "pointer" }}>
+            <ListItem button onClick={ () => {this.handleLogout ;this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
               <LogoutIcon sx={{ mr: 1 }} /> <ListItemText primary="Logout" />
             </ListItem>
           ) : (
-            <ListItem button onClick={() => this.props.navigate("/login")} sx={{ cursor: "pointer" }}>
+            <ListItem button onClick={() => {this.props.navigate("/login");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
               <LoginIcon sx={{ mr: 1 }} /> <ListItemText primary="Login" />
             </ListItem>
           )}
