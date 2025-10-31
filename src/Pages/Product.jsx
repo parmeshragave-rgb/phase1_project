@@ -221,7 +221,7 @@ class Product extends Component {
                   </Box>
 
                 <Box sx={{ bgcolor: "#0a1f254f", display: "flex", flexDirection: "column", justifyContent: "space-between", }} width={"100%"} height={"160px"}>
-                  <CardContent t sx={{ flexGrow: 1, height: "160px" }} onClick={() => { this.clickhandler(products.id) }} >
+                  <CardContent t sx={{ flexGrow: 1, height: "160px" }}>
                     <Typography variant='body1' sx={{ display: "flex", justifyContent: "left", fontWeight: "bold" }} >{products.title.substring(0, 25)}</Typography>
                     <Typography variant='body2' sx={{ fontFamily: "sans-serif", fontWeight: "bold", color: "#be0909ff", display: "flex", justifyContent: "left" }}>₹ {products.price}</Typography>
                     <Box sx={{display:"flex",justifyContent:"center",mt:"8px"}}>

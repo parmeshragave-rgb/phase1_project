@@ -55,51 +55,51 @@ class ProductDetail extends Component {
     return (
       <Box sx={{ mt: 10, p: 2 }}>
         <Card
-  sx={{
-    display: "flex",
-    flexDirection: { xs: "column", md: "row" },
-    alignItems: "center",
-    justifyContent: "space-between",
-    maxWidth: 1000,
-    mx: "auto",
-    borderRadius: 3,
-    boxShadow: 5,
-    overflow: "hidden",
-    p: 2,
-    position: "relative",
-  }}
->
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            alignItems: "center",
+            justifyContent: "space-between",
+            maxWidth: 1000,
+            mx: "auto",
+            borderRadius: 3,
+            boxShadow: 5,
+            overflow: "hidden",
+            p: 2,
+            position: "relative",
+          }}
+        >
 
-  <Button
-    onClick={() => { this.props.navigate("/products") }}
-    variant="text"
-    sx={{
-      position: "absolute",
-      top: { xs: 8, sm: 10, md: 14 },
-      left: { xs: 8, sm: 12, md: 16 },
-      fontFamily: "sans-serif",
-      fontWeight: "bold",
-      color: "black",
-      bgcolor: "white",
-      borderRadius: "50px",
-      boxShadow: 2,
-      zIndex:2,
-      "&:hover": { bgcolor: "#f0f0f0" },
-    }}
-  >
-    <ArrowBackIcon sx={{ mr: 1 }} />
-    Back
-  </Button>
+          <Button
+            onClick={() => { this.props.navigate("/products") }}
+            variant="text"
+            sx={{
+              position: "absolute",
+              top: { xs: 8, sm: 10, md: 14 },
+              left: { xs: 8, sm: 12, md: 16 },
+              fontFamily: "sans-serif",
+              fontWeight: "bold",
+              color: "black",
+              bgcolor: "white",
+              borderRadius: "50px",
+              boxShadow: 2,
+              zIndex: 2,
+              "&:hover": { bgcolor: "#f0f0f0" },
+            }}
+          >
+            <ArrowBackIcon sx={{ mr: 1 }} />
+            Back
+          </Button>
 
-          
-             
+
+
 
 
           <Box sx={{ flex: 1, display: "flex", justifyContent: "center", alignItems: "center", p: 2, position: "relative" }}>
-              
-           
 
-            
+
+
+
             <CardMedia
               component="img"
               image={product.image}
@@ -110,7 +110,7 @@ class ProductDetail extends Component {
                 objectFit: "contain",
                 borderRadius: 2,
                 bgcolor: "#f9f9f9",
-                position:'relative'
+                position: 'relative'
               }}
             />
           </Box>
@@ -143,8 +143,9 @@ class ProductDetail extends Component {
                 sx={{
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
-                  bgcolor: "#00004d",
+
                   "&:hover": { bgcolor: "#000080" },
+                  bgcolor: "#eb9514ff", color: "#0a1f25ff",
                 }}
               >
                 <AddShoppingCartIcon sx={{ mr: 1 }} />

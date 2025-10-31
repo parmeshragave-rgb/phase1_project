@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import {Box, Grid, Card, CardMedia, CardContent, Typography, Button, CardActions} from "@mui/material";
+import {Box, Grid, Card, CardMedia, CardContent, Typography, Button, CardActions,Stack, Toolbar} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import emptycart from '../images/emptycart.png';
 
@@ -44,10 +44,21 @@ class Cart extends Component {
     const total = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
     return (
-      <Box sx={{ p: 4,mt:"80px"}}>
-        <Typography variant="h4" sx={{ mb: 3,fontFamily:"sans-serif",fontWeight:"bold"}}>
-          <ShoppingCartIcon sx={{mt:"5px"}}/> Your Cart
-        </Typography>
+      <Box sx={{ p: 4,mt:"45px"}}>
+       <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1, ml: 2 }}>
+  <ShoppingCartIcon sx={{ fontSize: 44, color: "#f7a221d2" }} />
+  <Typography
+    variant="h5"
+    sx={{
+      fontWeight: "bold",
+      fontSize: { xs: "30px", sm: "30px", md: "36px" },
+      color:"#010a0cdc"
+    }}
+  >
+    Your Cart
+  </Typography>
+</Stack>
+<Toolbar/>
 
         {cart.length === 0 ? (
           <Box sx={{display: "flex",
@@ -56,7 +67,7 @@ class Cart extends Component {
                 alignItems: "center",
                  width: "100%",
                         textAlign: "center",}}>
-          <Typography variant="h6">Your cart is empty.</Typography>
+          <Typography variant="h4" sx={{fontFamily:"sans-serif",fontWeight:"bold",color:"#2b2c2c3a"}}>Looks like you haven’t added anything yet..</Typography>
           <CardMedia component="img"
                      image={emptycart} 
                      sx={{ width: "300px",objectFit: "contain",height:"auto"}}
