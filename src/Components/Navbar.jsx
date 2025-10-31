@@ -82,21 +82,35 @@ class Navbar extends Component {
 
     return (
       <>
-        <AppBar position="fixed" sx={{ bgcolor: "#00004d" }}>
+        <AppBar position="fixed" sx={{ bgcolor: "#0a1f25ff" }}>
           <Toolbar>
 
             <Box onClick={() => this.props.navigate("/")}>
-              <Typography
+              <Stack direction={"row"}>
+<Typography
+                variant="h4"
+                sx={{
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  color: "#eb9514ff",
+                  cursor: "pointer"
+                }}
+              >
+                E
+              </Typography>
+<Typography
                 variant="h5"
                 sx={{
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
                   color: "whitesmoke",
-                  cursor: "pointer"
+                  cursor: "pointer",
+                  mt:"7px"
                 }}
               >
-                ECommerce.
+                Commerce.
               </Typography>
+              </Stack>
             </Box>
             <Box sx={{ flexGrow: 1, }}>
             </Box>

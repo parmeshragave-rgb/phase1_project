@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import {Box, Grid, Card, CardMedia, CardContent, Typography, Button, CardActions} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import emptycart from '../images/emptycart.png';
 
 class Cart extends Component {
   constructor(props) {
@@ -49,7 +50,19 @@ class Cart extends Component {
         </Typography>
 
         {cart.length === 0 ? (
+          <Box sx={{display: "flex",
+                   flexDirection: "column",
+                   justifyContent: "center",
+                alignItems: "center",
+                 width: "100%",
+                        textAlign: "center",}}>
           <Typography variant="h6">Your cart is empty.</Typography>
+          <CardMedia component="img"
+                     image={emptycart} 
+                     sx={{ width: "300px",objectFit: "contain",height:"auto"}}
+             
+                        />
+          </Box>
         ) : (
           <>
             <Grid container spacing={2}>

@@ -11,30 +11,15 @@ class Homepage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
       allProducts: [],
-      searchQuery: "",
     };
-    this.debounceTimer = null;
   }
 
   componentDidMount() {
     axios.get("https://fakestoreapi.com/products")
       .then((res) => {
         const data = res.data;
-        const categoryMap = {};
-
-        data.forEach((item) => {
-          if (!categoryMap[item.category]) categoryMap[item.category] = [];
-          categoryMap[item.category].push(item);
-        });
-
-        const categories = Object.keys(categoryMap).map((cat) => ({
-          name: cat,
-          items: categoryMap[cat],
-        }));
-
-        this.setState({ categories, allProducts: data });
+        this.setState({ allProducts: data });
       })
       .catch((err) => alert(`Error: ${err}`));
   }
@@ -43,39 +28,15 @@ class Homepage extends Component {
     this.props.navigate(`/product/${id}`);
   };
 
-  handlesearchchange = (e) => {
-    const value = e.target.value.toLowerCase();
-    this.setState({ searchQuery: value });
 
-    clearTimeout(this.debounceTimer);
-    this.debounceTimer = setTimeout(() => {
-      const { allProducts } = this.state;
-      const filtered = allProducts.filter((p) =>
-        p.title.toLowerCase().includes(value)
-      );
-
-      const categoryMap = {};
-      filtered.forEach((item) => {
-        if (!categoryMap[item.category]) categoryMap[item.category] = [];
-        categoryMap[item.category].push(item);
-      });
-
-      const categories = Object.keys(categoryMap).map((cat) => ({
-        name: cat,
-        items: categoryMap[cat],
-      }));
-
-      this.setState({ categories });
-    }, 400);
-  };
 
   render() {
     const { allProducts } = this.state;
 
     return (
       <>
-        
 
+        <Toolbar />
         <Topbgimage />
 
 
@@ -89,35 +50,47 @@ class Homepage extends Component {
 
 
 
-        
 
-<Box
-  sx={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
-    p: 1,
-    mb:0
-  }}
->
-  <Box
-  component="img"
-  src={cdImage}
-  alt="product"
-  sx={{
-    height: "110px",
-     width: {xs:"250px",sm:"300px",md:"450px"},
-    objectFit: "contain",
-    borderRadius: "8px",
-    transition: "all 0.3s ease",
-    "&:hover": {
-      transform: "scale(1.05)",
-    },
-  }}
-/>
-  
-</Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100%",
+            p: 1,
+            mb: "10px",
+            mt: "10px",
+
+          }}
+        >
+
+          <CardMedia
+            component="img"
+            src={cdImage}
+            alt="product"
+            sx={{
+              border: "0px solid",
+              borderColor: "#00004d",
+              bgcolor: "#dfddebff",
+              height: "70px",
+              width: { xs: "250px", sm: "300px", md: "450px" },
+              objectFit: "contain",
+              borderRadius: "8px",
+              transition: "all 0.3s ease",
+            boxShadow:"0 0 10px #0a1f25ff",
+
+              "&:hover": {
+                transform: "scale(1.05)",
+                mt: "5px",
+                mb: "20px",
+
+              },
+            }}
+          />
+
+
+        </Box>
 
         <Box sx={{ ml: "120px", mr: "120px" }}>
           <Grid container spacing={2} sx={{ mb: "10px" }} justifyContent="center">
@@ -152,7 +125,7 @@ class Homepage extends Component {
                 >
                   <CardMedia
                     component="img"
-                    height="60"
+                    height="80"
                     image={product.image}
                     sx={{
                       objectFit: "contain",
@@ -164,30 +137,19 @@ class Homepage extends Component {
                     }
                     }
                   />
-                  <CardContent sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
-                    <Stack spacing={1}>
-                      <Typography sx={{ fontFamily: "sans-serif", fontWeight: "bold", fontSize: "12px" }}>
-                        {product.title.charAt(0).toUpperCase() + product.title.slice(1, 12)}
-                      </Typography>
-                      <Typography sx={{ fontFamily: "sans-serif", fontWeight: "bold", fontSize: "12px", display: "flex", justifyContent: "center" }}>
-                        {Math.floor(Math.random() * (60 - 10 + 1)) + 10} %Off
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                  {/* <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography
-                        variant="body1"
-                        sx={{
-                          fontFamily: "sans-serif",
-                          fontWeight: "bold",
-                         
-                          color: "#003366", 
-     
-                        }}
-                      >
-                        ₹{product.price}
-                      </Typography>
-                    </CardContent> */}
+                  <Box sx={{ bgcolor: "#0a1f254f", display: "flex", flexDirection: "column", justifyContent: "space-between", width: "100%", height: 100 }}>
+
+                    <CardContent sx={{ flexGrow: 1, display: "flex", justifyContent: "center", alignItems: "center" }}>
+                      <Stack spacing={1}>
+                        <Typography sx={{ fontFamily: "sans-serif", fontWeight: "bold", fontSize: "12px" }}>
+                          {product.title.charAt(0).toUpperCase() + product.title.slice(1, 12)}
+                        </Typography>
+                        <Typography sx={{ fontFamily: "sans-serif", fontWeight: "bold", fontSize: "12px", display: "flex", justifyContent: "center", color: "maroon" }}>
+                          {Math.floor(Math.random() * (60 - 10 + 1)) + 10}% Off
+                        </Typography>
+                      </Stack>
+                    </CardContent>
+                    </Box>
                 </Card>
 
               </Grid>
@@ -196,7 +158,6 @@ class Homepage extends Component {
 
           </Grid>
         </Box>
-
 
       </>
     );

@@ -8,7 +8,7 @@ class Footer extends Component {
     return (
       <Box
         sx={{
-          bgcolor:"#020238ff",
+          bgcolor: "#0a1f25ff" ,
           color: "white",
           textAlign: "center",
           pt:"10px",
