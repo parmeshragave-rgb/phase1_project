@@ -46,13 +46,14 @@ class Cart extends Component {
     return (
       <Box sx={{ p: 4,mt:"45px"}}>
        <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1, ml: 2 }}>
-  <ShoppingCartIcon sx={{ fontSize: 44, color: "#f7a221d2" }} />
+  <ShoppingCartIcon sx={{ fontSize: 44, color: "#eb9514ff", }} />
   <Typography
     variant="h5"
     sx={{
       fontWeight: "bold",
       fontSize: { xs: "30px", sm: "30px", md: "36px" },
-      color:"#010a0cdc"
+      color:"#010a0cdc",
+      fontFamily:"sans-serif"
     }}
   >
     Your Cart

@@ -43,6 +43,7 @@ class Login extends Component {
             message: "Account created successfully! You can now login.",
             isLogin: true
           });
+          navigate("/");
         })
         .catch((err) => {
           console.error(err);
@@ -95,13 +96,13 @@ class Login extends Component {
         helperText={!password ? "Password is required" : ""}
         fullWidth  required/>
 
-         <Button variant="contained" type="submit" fullWidth sx={{borderRadius: "50px", bgcolor: "#00004d", fontFamily:"sans-serif",color: "whitesmoke"}}>
+         <Button variant="contained" type="submit" fullWidth sx={{borderRadius: "50px", bgcolor: "#eb9514ff", fontFamily:"sans-serif",color: "black"}}>
                 {isLogin ? "Login" : "Sign Up"}
               </Button>
             </Stack>
           </form>
 
-          <Typography variant="body2" sx={{ mt: 2, cursor: "pointer", color: "#00004d", textDecoration: "underline" }}
+          <Typography variant="body2" sx={{ mt: 2, cursor: "pointer", color: "#000007ff", textDecoration: "underline" }}
             onClick={this.toggleMode}
           >
             {isLogin ? "New user? Create an account" : "Already have an account? Login"}

@@ -92,7 +92,7 @@ class Homepage extends Component {
 
         </Box>
 
-        <Box sx={{ ml: "120px", mr: "120px" }}>
+        <Box sx={{ ml: {md:"120px",xs:"5px"}, mr: {md:"120px",xs:"5px"} }}>
           <Grid container spacing={2} sx={{ mb: "10px" }} justifyContent="center">
             {allProducts.slice(0, 18).map((product) => (
               <Grid item xs={12} sm={6} md={3} key={product.id}>
@@ -113,11 +113,11 @@ class Homepage extends Component {
                     border: "0px",
                     borderRadius: "16px",
                     transition: "all 0.3s ease",
-                    boxShadow: "0 2px 6px rgba(17, 5, 66, 0.56)",
+                    boxShadow: "0 2px 6px #0a1f25ff",
 
                     "&:hover": {
                       borderColor: "#dfddebff",
-                      boxShadow: "4px 4px 4px 4px rgba(0, 42, 127, 0.6)",
+                      boxShadow: "4px 4px 4px 4px #0a1f25ff",
                       transform: "scale(1.05)",
 
                     }

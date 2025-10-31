@@ -6,26 +6,32 @@ import "slick-carousel/slick/slick-theme.css";
 import tsImage from '../ts.png';
 
 class Sliderhome extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       width:0
+    }
+  }
+  
   render() {
     const { productsslide, navigate } = this.props;
 
     if (!productsslide || productsslide.length === 0) return null;
-
+          const slidesToShow=
+          window.innerWidth <= 600 ? 1 : window.innerWidth <= 900 ? 2: window.innerWidth <= 1200 ? 3 : 4;
     const settings = {
       infinite: true,
-      speed: 5000,
-      slidesToShow: 4,
+      speed: 600,
+      slidesToShow,
       slidesToScroll: 1,
       autoplay: true,
-      autoplaySpeed: 0,
-      cssEase: "linear",
+      autoplaySpeed: 1000,
+      //cssEase: "linear",
       arrows: false,
       pauseOnHover: true,
-      responsive: [
-        { breakpoint: "1200px", settings: { slidesToShow: 3 } },
-        { breakpoint: "900px", settings: { slidesToShow: 1 } },
-        { breakpoint: "600px", settings: { slidesToShow: 1 } },
-      ],
+      
+      
     };
 
     return (

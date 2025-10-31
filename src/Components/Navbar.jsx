@@ -28,9 +28,7 @@ class Navbar extends Component {
     this.props.navigate("/products");
   };
 
-  handleDrawerToggle = () => {
-    this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }));
-  };
+  
 
   handleLogout = () => {
     localStorage.removeItem("token");
@@ -54,15 +52,15 @@ class Navbar extends Component {
         </Box>
         <Divider />
         <List>
-          <ListItem button onClick={() => this.props.navigate("/")} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => {this.props.navigate("/");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
             <HomeIcon sx={{ mr: 1 }} />
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button onClick={this.navhandler} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => {this.props.navigate("/products");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))} }sx={{ cursor: "pointer" }}>
             <ShoppingCartCheckoutIcon sx={{ mr: 1 }} />
             <ListItemText primary="Shop" />
           </ListItem>
-          <ListItem button onClick={() => this.props.navigate("/cart")} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => {this.props.navigate("/cart");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
             <ShoppingCartIcon sx={{ mr: 1 }} />
             <ListItemText primary="Cart" />
           </ListItem>
@@ -140,8 +138,8 @@ class Navbar extends Component {
                     color="inherit"
 
                 sx={{
-                  fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
-                  "&:active": { bgcolor: "whitesmoke", color: "#00004d" },
+                  fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                  
                 }}
                 onClick={this.navhandler}
               >
@@ -150,8 +148,7 @@ class Navbar extends Component {
 
                   
               <IconButton   color="inherit" sx={{
-                "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
-                "&:active": { bgcolor: "whitesmoke", color: "#00004d" },
+                "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
               }}
                 onClick={() => this.props.navigate("/cart")}>
                 <Badge color="error">
@@ -161,21 +158,21 @@ class Navbar extends Component {
 
               {isLoggedIn ? (
                 <Button
-                  
+                  color="inherit"
                   sx={{
-                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
-                    "&:active": { bgcolor: "whitesmoke", color: "#00004d" }
-                  }}
+                    fontFamily: "sans-serif", fontWeight: "bold","&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                  }
+                  }
                   onClick={this.handleLogout}
                 >
                   <LogoutIcon sx={{ mr: 1 }} /> Logout
                 </Button>
               ) : (
                 <Button
-                  
+                  color="inherit"
                   sx={{
-                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "whitesmoke", color: "#00004d" },
-                    "&:active": { bgcolor: "whitesmoke", color: "#00004d" }
+                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                     
                   }}
                   onClick={() => this.props.navigate("/login")}
                 >
@@ -187,7 +184,7 @@ class Navbar extends Component {
             <IconButton
               sx={{ display: { xs: "block", md: "none" } }}
               color="inherit"
-              onMouseEnter={this.handleDrawerToggle}
+              onClick={() => {this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }));}}
             >
               <MenuIcon />
             </IconButton>
@@ -197,7 +194,6 @@ class Navbar extends Component {
         <Drawer
           anchor="right"
           open={mobileOpen}
-          onMouseLeave={this.handleDrawerToggle}
           sx={{ display: { xs: "block", md: "none" } }}
         >
           {drawer}

@@ -6,35 +6,37 @@ import MailIcon from '@mui/icons-material/Mail';
 class Footer extends Component {
   render() {
     return (
-      <Box
-        sx={{
-          bgcolor: "#0a1f25ff" ,
-          color: "white",
-          textAlign: "center",
-          pt:"10px",
-          pb:"5px",
-          mt: 5,
-          width:"100%"
-        }}
-      >
-        <Typography variant="body2" sx={{ mb: 0.5 }}>
-           <LocalPhoneIcon sx={{mr:"5px" ,fontSize: "16px"}}/>+91 98765 43210 | <MailIcon sx={{mr:"5px",ml:"5px",fontSize: "16px"}}/>  abc@gmail.com
-        </Typography>
+     <Box
+  sx={{
+    bgcolor: "#0a1f25ff",
+    color: "white",
+    textAlign: "center",
+    py: "8px",
+    mt: 5,
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height:"40px"
+  }}
+>
+  <Typography
+    variant="body2"
+    sx={{
+      display: "flex",
+      alignItems: "center",
+      gap: "6px",
+      fontSize: "14px",
+      fontFamily:"sans-serif",
+      fontWeight:"bold"
+    }}
+  >
+    <LocalPhoneIcon sx={{ fontSize: "16px" ,color:"#eb9514ff"}} /> +91 98765 43210 |
+    <MailIcon sx={{ fontSize: "16px",color:"#eb9514ff" }} /> abc@gmail.com |
+    <CopyrightIcon sx={{ fontSize: "16px",color:"#eb9514ff"}} /> 2025 E-Commerce
+  </Typography>
+</Box>
 
-        <Typography
-          variant="body2"
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: "5px",
-            
-          }}
-        >
-          <CopyrightIcon sx={{ fontSize: "16px" }} />
-          2025  E-Commerce
-        </Typography>
-      </Box>
     );
   }
 }

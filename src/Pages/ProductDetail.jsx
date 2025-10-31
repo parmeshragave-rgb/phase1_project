@@ -88,7 +88,7 @@ class ProductDetail extends Component {
             }}
           >
             <ArrowBackIcon sx={{ mr: 1 }} />
-            Back
+            
           </Button>
 
 
