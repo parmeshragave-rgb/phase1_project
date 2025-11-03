@@ -126,7 +126,7 @@ class Navbar extends Component {
               <Button
                     color="inherit"
                 sx={{
-                  fontFamily: "sans-serif", fontWeight: "bold"
+                  fontFamily: "sans-serif", fontWeight: "bold","&:hover": { bgcolor: "#fcfaf8ff", color: "#0a1f25ff" }
                 }}
                 onClick={() => this.props.navigate("/")}
 
@@ -138,7 +138,7 @@ class Navbar extends Component {
                     color="inherit"
 
                 sx={{
-                  fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                  fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#fcfaf8ff", color: "#0a1f25ff" },
                   
                 }}
                 onClick={this.navhandler}
@@ -148,7 +148,7 @@ class Navbar extends Component {
 
                   
               <IconButton   color="inherit" sx={{
-                "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                "&:hover":{ bgcolor: "#fcfaf8ff", color: "#0a1f25ff" },
               }}
                 onClick={() => this.props.navigate("/cart")}>
                 <Badge color="error">
@@ -160,7 +160,7 @@ class Navbar extends Component {
                 <Button
                   color="inherit"
                   sx={{
-                    fontFamily: "sans-serif", fontWeight: "bold","&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                    fontFamily: "sans-serif", fontWeight: "bold","&:hover": { bgcolor: "#fcfaf8ff", color: "#0a1f25ff" },
                   }
                   }
                   onClick={this.handleLogout}
@@ -171,7 +171,7 @@ class Navbar extends Component {
                 <Button
                   color="inherit"
                   sx={{
-                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#eb95144d", color: "#0a1f25ff" },
+                    fontFamily: "sans-serif", fontWeight: "bold", "&:hover": { bgcolor: "#fcfaf8ff", color: "#0a1f25ff" },
                      
                   }}
                   onClick={() => this.props.navigate("/login")}

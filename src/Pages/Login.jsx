@@ -63,15 +63,21 @@ class Login extends Component {
         });
     } else {
       axios.post("https://fakestoreapi.com/users", { username, email, password })
-        .then(() => {
-          this.setState({
+        .then((res) => {
+
+          const {id: userId} = res.data;
+          console.log('*****************user id', res, userId);
+          axios.get(`https://fakestoreapi.com/users/${userId}`,).then(res => {
+            const {username, email, password} = res
+            this.setState({
             message: "Account created successfully! You can now login.",
             isLogin: true,
-            username: "",
-            password: "",
-            email: "",
+            username: username,
+            password: password,
+            email: email,
           });
            navigate("/");
+          })
         })
         .catch(() => {
           this.setState({ message: "Failed to create account." });
