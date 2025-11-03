@@ -71,6 +71,7 @@ class Login extends Component {
             password: "",
             email: "",
           });
+           navigate("/");
         })
         .catch(() => {
           this.setState({ message: "Failed to create account." });

@@ -81,21 +81,56 @@ class Product extends Component {
 
   };
 
+// addtocart = (product) => {
+//   const payload = {
+//     userId: 1, 
+//     products: [
+//       {
+//         productId: product.id,
+//         quantity: 1
+//       }
+//     ]
+//   };
+
+//   axios.post("https://fakestoreapi.com/carts", payload)
+//     .then((res) => {
+//       console.log("Added to cart:", res.data);
+//       this.setState({ openSnackbar: true });
+//     })
+//     .catch((error) => {
+//       console.error("Error adding to cart:", error);
+//       alert("Failed to add to cart. Please try again.");
+//     });
+// };
 
 
-  addtocart = (product) => {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+addtocart = (product) => {
+  const { products } = this.state;
+  const updatedProducts = [...products];
 
-    const existing = cart.find((item) => item.id === product.id);
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ ...product, quantity: 1 });
-    }
+  const index = updatedProducts.findIndex((p) => p.id === product.id);
+  if (index !== -1) {
+    updatedProducts[index].quantity = (updatedProducts[index].quantity || 0) + 1;
+  }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    this.setState({ openSnackbar: true });
-  };
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existing = cart.find((item) => item.id === product.id);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  localStorage.setItem('cart', JSON.stringify(cart));
+
+  this.setState({
+    openSnackbar: true,
+    products: updatedProducts, 
+  });
+};
+
+
 
   handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") return;
@@ -225,7 +260,7 @@ class Product extends Component {
                     <Typography variant='body1' sx={{ display: "flex", justifyContent: "left", fontWeight: "bold" }} >{products.title.substring(0, 25)}</Typography>
                     <Typography variant='body2' sx={{ fontFamily: "sans-serif", fontWeight: "bold", color: "#be0909ff", display: "flex", justifyContent: "left" }}>₹ {products.price}</Typography>
                     <Box sx={{display:"flex",justifyContent:"center",mt:"8px"}}>
-                    <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "100px" }}><AddShoppingCartIcon /></Button>
+                    <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "100px" }}><AddShoppingCartIcon />{products.quantity}</Button>
                      </Box>
                   </CardContent>
                 </Box>
@@ -274,3 +309,16 @@ function ProductWrapper() {
 }
 export default ProductWrapper
 
+//addtocart = (product) => {
+  //   const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  //   const existing = cart.find((item) => item.id === product.id);
+  //   if (existing) {
+  //     existing.quantity += 1;
+  //   } else {
+  //     cart.push({ ...product, quantity: 1 });
+  //   }
+
+  //   localStorage.setItem('cart', JSON.stringify(cart));
+  //   this.setState({ openSnackbar: true });
+  // };

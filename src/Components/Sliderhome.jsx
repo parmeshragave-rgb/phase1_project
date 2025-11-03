@@ -13,7 +13,7 @@ class Sliderhome extends Component {
        width:0
     }
   }
-  
+
   render() {
     const { productsslide, navigate } = this.props;
 
@@ -58,6 +58,9 @@ class Sliderhome extends Component {
                 transition: "all 0.3s ease",
                 "&:hover": {
                   transform: "scale(1.05)",
+                  display:"flex",
+                  justifyContent:"center",
+                  ml:"3px"
                 },
               }}>
             </Box>

@@ -12,7 +12,9 @@ class ProductDetail extends Component {
 
     this.state = {
       product: {},
-      openSnackbar: false
+      openSnackbar: false,
+      desLen:50,
+      expanded:false
     }
   }
 
@@ -31,24 +33,34 @@ class ProductDetail extends Component {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existing = cart.find((item) => item.id === product.id);
+    let newQuantity=1
     if (existing) {
       existing.quantity += 1;
+      newQuantity=existing.quantity;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.setState({ openSnackbar: true });
+    this.setState({ 
+      openSnackbar: true ,
+       product: { ...product, quantity: newQuantity }
+    });
   };
 
   handleCloseSnackbar = (event, reason) => {
     if (reason === "clickaway") return;
     this.setState({ openSnackbar: false });
   };
+  toggleDescription =() =>{
+    this.setState( (prev) => ({
+      expanded:!prev.expanded
+    }))
+  }
 
 
   render() {
-    const { product } = this.state
+    const { product,desLen,expanded} = this.state
     if (!product || !product.id) {
       return <Typography sx={{ mt: 10, textAlign: "center" }}>Loading...</Typography>;
     }
@@ -71,7 +83,7 @@ class ProductDetail extends Component {
         >
 
           <Button
-            onClick={() => { this.props.navigate("/products") }}
+            onClick={() => { this.props.navigate(-1) }}
             variant="text"
             sx={{
               position: "absolute",
@@ -129,8 +141,10 @@ class ProductDetail extends Component {
             </Typography>
 
             <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
-              {product.description}
+  
+              {expanded ? product.description : product.description.substring(0,desLen)+"..." } <Button onClick={this.toggleDescription}>{expanded ? "Read Less" :"Read more"}</Button>
             </Typography>
+           
 
             <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
               ₹ {product.price}
@@ -144,12 +158,12 @@ class ProductDetail extends Component {
                   fontFamily: "sans-serif",
                   fontWeight: "bold",
 
-                  "&:hover": { bgcolor: "#000080" },
+                  "&:hover": { bgcolor: "#00008002" },
                   bgcolor: "#eb9514ff", color: "#0a1f25ff",
                 }}
               >
                 <AddShoppingCartIcon sx={{ mr: 1 }} />
-                Add to Cart
+                Add to Cart {product.quantity}
               </Button>
 
               <Button

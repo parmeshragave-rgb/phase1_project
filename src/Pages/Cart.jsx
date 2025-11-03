@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import {Box, Grid, Card, CardMedia, CardContent, Typography, Button, CardActions,Stack, Toolbar} from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import emptycart from '../images/emptycart.png';
-
+import { useNavigate } from "react-router-dom";
 class Cart extends Component {
   constructor(props) {
     super(props);
@@ -45,8 +45,8 @@ class Cart extends Component {
 
     return (
       <Box sx={{ p: 4,mt:"45px"}}>
-       <Stack direction="row" alignItems="center" spacing={1} sx={{ mt: 1, ml: 2 }}>
-  <ShoppingCartIcon sx={{ fontSize: 44, color: "#eb9514ff", }} />
+       <Stack direction="column" alignItems="left" spacing={1} sx={{ mt: 1, ml: 2 }}>
+  
   <Typography
     variant="h5"
     sx={{
@@ -56,8 +56,9 @@ class Cart extends Component {
       fontFamily:"sans-serif"
     }}
   >
-    Your Cart
+   <ShoppingCartIcon sx={{ fontSize: 44, color: "#eb9514ff", }} /> Your Cart
   </Typography>
+  <Button  sx={{backgroundColor:"#eb9514ff",color:"black",width:{xs:"10px",sm:"30px",md:"30px"},fontFamily:"sans-serif",fontWeight:"bold"}}onClick={ () => this.props.navigate(-1)}>Back</Button>
 </Stack>
 <Toolbar/>
 
@@ -97,7 +98,7 @@ class Cart extends Component {
                     <CardActions>
                       <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.increaseQty(item.id)}>+</Button>
                       <Typography sx={{fontFamily:"sans-serif",fontWeight:"bold",color:"green"}}>{item.quantity}</Typography>
-                      <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.decreaseQty(item.id)}>-</Button>
+                      <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} onClick={() => this.decreaseQty(item.id)} disabled={item.quantity===1 ? true : false} >-</Button>
                       <Button sx={{fontFamily:"sans-serif",fontWeight:"bold"}} color="error" onClick={() => this.removeItem(item.id)}>
                         Remove
                       </Button>
@@ -117,4 +118,9 @@ class Cart extends Component {
   }
 }
 
-export default Cart
+function WrapperCart(){
+  const navigate=useNavigate()
+  return <Cart navigate={navigate}/>
+}
+
+export default WrapperCart
