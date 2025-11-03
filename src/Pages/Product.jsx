@@ -259,8 +259,9 @@ addtocart = (product) => {
                   <CardContent t sx={{ flexGrow: 1, height: "160px" }}>
                     <Typography variant='body1' sx={{ display: "flex", justifyContent: "left", fontWeight: "bold" }} >{products.title.substring(0, 25)}</Typography>
                     <Typography variant='body2' sx={{ fontFamily: "sans-serif", fontWeight: "bold", color: "#be0909ff", display: "flex", justifyContent: "left" }}>₹ {products.price}</Typography>
-                    <Box sx={{display:"flex",justifyContent:"center",mt:"8px"}}>
+                    <Box sx={{display:"flex",justifyContent:"space-between",mt:"8px"}}>
                     <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "100px" }}><AddShoppingCartIcon />{products.quantity}</Button>
+                    <Button variant="contained" size="small" onClick={() => this.props.navigate("/cart")} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "120px" }}>Go to Cart</Button>
                      </Box>
                   </CardContent>
                 </Box>

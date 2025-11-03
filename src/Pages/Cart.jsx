@@ -81,7 +81,7 @@ class Cart extends Component {
             <Grid container spacing={2}>
               {cart.map((item) => (
                 <Grid item xs={12} md={6} lg={4} key={item.id}>
-                  <Card  sx={ {height: 350, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
+                  <Card  sx={ {height: 340, width:280, display: "flex", flexDirection: "column",justifyContent: "space-between",pt:0,pb:0,cursor:"pointer"}}>
                     <CardMedia
                       component="img"
                       height="150"
