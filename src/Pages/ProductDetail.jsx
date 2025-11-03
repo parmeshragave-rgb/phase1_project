@@ -140,11 +140,22 @@ class ProductDetail extends Component {
               {product.category.toUpperCase()}
             </Typography>
 
-            <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
-  
-              {expanded ? product.description : product.description.substring(0,desLen)+"..." } <Button onClick={this.toggleDescription}>{expanded ? "Read Less" :"Read more"}</Button>
-            </Typography>
-           
+           <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
+  {expanded ? product.description : `${product.description.substring(0, desLen)}... `}
+  <Box
+    component="span"
+    onClick={this.toggleDescription}
+    sx={{
+      fontFamily: "sans-serif",
+      fontWeight: "bold",
+      cursor: "pointer",
+      display: "inline",
+    }}
+  >
+    {expanded ? "Read Less" : "Read more"}
+  </Box>
+</Typography>
+
 
             <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
               ₹ {product.price}
