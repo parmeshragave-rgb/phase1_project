@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Grid, Card, CardMedia, CardActions, Box, CardContent, Typography, Toolbar, Button, ButtonGroup, Paper, TextField, Pagination, InputAdornment, Snackbar, IconButton } from '@mui/material'
+import { Grid, Card, CardMedia, CardActions, Box, CardContent, Typography, Toolbar, Button, ButtonGroup, Paper, TextField, Pagination, InputAdornment, Snackbar, IconButton, Stack } from '@mui/material'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
 import Categorydrop from '../Components/Categorydrop';
@@ -7,6 +7,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import ClearIcon from '@mui/icons-material/Clear';
 import carosal4 from '../images/shopbg.png';
+import nomatch from '../images/nomatch.png';
+
 
 
 class Product extends Component {
@@ -21,7 +23,11 @@ class Product extends Component {
       productsPerPage: 8,
       openSnackbar: false,
       noresult: false,
-      clear: false
+      clear: false,
+      cart: [],
+      cartId: null,
+      userId: 1,
+      loading: true
     }
   }
 
@@ -49,6 +55,8 @@ class Product extends Component {
 
   componentDidMount() {
     this.fetchdata()
+    const savedCart = JSON.parse(localStorage.getItem("cart")) || []
+    this.setState({ cart: savedCart })
   }
 
 
@@ -81,54 +89,48 @@ class Product extends Component {
 
   };
 
-// addtocart = (product) => {
-//   const payload = {
-//     userId: 1, 
-//     products: [
-//       {
-//         productId: product.id,
-//         quantity: 1
-//       }
-//     ]
-//   };
-
-//   axios.post("https://fakestoreapi.com/carts", payload)
-//     .then((res) => {
-//       console.log("Added to cart:", res.data);
-//       this.setState({ openSnackbar: true });
-//     })
-//     .catch((error) => {
-//       console.error("Error adding to cart:", error);
-//       alert("Failed to add to cart. Please try again.");
-//     });
-// };
 
 
-addtocart = (product) => {
-  const { products } = this.state;
-  const updatedProducts = [...products];
 
-  const index = updatedProducts.findIndex((p) => p.id === product.id);
-  if (index !== -1) {
-    updatedProducts[index].quantity = (updatedProducts[index].quantity || 0) + 1;
-  }
 
-  const cart = JSON.parse(localStorage.getItem('cart')) || [];
-  const existing = cart.find((item) => item.id === product.id);
+  addtocart = (product) => {
+    const { cart, cartId, userId } = this.state;
+    let updatedCart = [...cart];
+    const existing = updatedCart.find((item) => item.id === product.id);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      updatedCart.push({ ...product, quantity: 1 });
+    }
 
-  if (existing) {
-    existing.quantity += 1;
-  } else {
-    cart.push({ ...product, quantity: 1 });
-  }
+    this.setState({ cart: updatedCart, openSnackbar: true });
 
-  localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    const payload = {
+      userId: userId,
+      products: updatedCart.map((p) => ({
+        productId: p.id,
+        quantity: p.quantity,
+      })),
+    };
 
-  this.setState({
-    openSnackbar: true,
-    products: updatedProducts, 
-  });
-};
+
+    const apiCall = cartId
+      ? axios.put(`https://fakestoreapi.com/carts/${cartId}`, payload)
+      : axios.post("https://fakestoreapi.com/carts", payload);
+
+
+    apiCall
+      .then((res) => {
+        console.log("Cart updated:", res.data);
+
+        if (!cartId) this.setState({ cartId: res.data.id });
+      })
+      .catch((err) => {
+        console.error("Error updating cart:", err);
+      });
+  };
+
 
 
 
@@ -150,85 +152,88 @@ addtocart = (product) => {
 
     return (
       <>
-      <Box sx={{width:"100%",backgroundImage: `url(${carosal4 })`,mt:"60px",mb:"20px",boxShadow:"0 0 20px grey" }}>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
+        <Box sx={{ width: "100%", backgroundImage: `url(${carosal4})`, mt: "60px", mb: "20px", boxShadow: "0 0 20px grey" }}>
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
 
-          <Box
-            sx={{
-              width: { xs: "90%", sm: "80%", md: "70%", lg: "60%" },
-              mt: "120px",
-              alignItems: "center",
-              display: "flex",
-            }}
-          >
-            <Paper
-              elevation={3}
+            <Box
               sx={{
-                display: "flex",
+                width: { xs: "90%", sm: "80%", md: "70%", lg: "60%" },
+                mt: "120px",
                 alignItems: "center",
-                justifyContent: "space-between",
-                gap: 1,
-                p: { xs: 1, sm: 1.5 },
-                borderRadius: "50px",
-                width: "100%",
-                bgcolor: "rgba(255,255,255,0.25)",
-                backdropFilter: "blur(10px)",
-                boxShadow: 3,
+                display: "flex",
               }}
             >
-              <TextField
-                onChange={this.handlesearchchange}
-                variant="outlined"
-                placeholder="Search"
-                type="search"
-                value={this.state.searchQuery}
-                fullWidth
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} />
-                    </InputAdornment>
-                  ),
-                }}
+              <Paper
+                elevation={3}
                 sx={{
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '50px',
-                    backgroundColor: 'rgba(255,255,255,0.9)',
-                    '& fieldset': { border: 'none' },
-                    '&:hover fieldset': { border: 'none' },
-                    '&.Mui-focused fieldset': { border: 'none' },
-                    transition: "all 0.3s ease",
-                    width: "100%",
-                  },
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  gap: 1,
+                  p: { xs: 1, sm: 1.5 },
+                  borderRadius: "50px",
+                  width: "100%",
+                  bgcolor: "rgba(255,255,255,0.25)",
+                  backdropFilter: "blur(10px)",
+                  boxShadow: 3,
                 }}
-              />
-              {this.state.clear && (
-                <IconButton
-                  onClick={() => {
-                    this.setState({
-                      searchQuery: "",
-                      products: this.state.allProducts,
-                      noresult: false,
-                      clear: false,
-                    });
+              >
+                <TextField
+                  onChange={this.handlesearchchange}
+                  variant="outlined"
+                  placeholder="Search"
+                  type="search"
+                  value={this.state.searchQuery}
+                  fullWidth
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <SearchIcon sx={{ ml: 1, mr: 1, color: "text.secondary" }} />
+                      </InputAdornment>
+                    ),
                   }}
-                >
-                  <ClearIcon />
-                </IconButton>
-              )}
-              <Categorydrop oncatchange={this.handlecatchange} />
-            </Paper>
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '50px',
+                      backgroundColor: 'rgba(255,255,255,0.9)',
+                      '& fieldset': { border: 'none' },
+                      '&:hover fieldset': { border: 'none' },
+                      '&.Mui-focused fieldset': { border: 'none' },
+                      transition: "all 0.3s ease",
+                      width: "100%",
+                    },
+                  }}
+                />
+                {this.state.clear && (
+                  <IconButton
+                    onClick={() => {
+                      this.setState({
+                        searchQuery: "",
+                        products: this.state.allProducts,
+                        noresult: false,
+                        clear: false,
+                      });
+                    }}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                )}
+                <Categorydrop oncatchange={this.handlecatchange} />
+              </Paper>
+            </Box>
           </Box>
-        </Box>
-        <Toolbar />
+          <Toolbar />
         </Box>
 
         <Grid container spacing={2} justifyContent="center">
-          {this.state.noresult && <h1> No matches found</h1>}
+          {this.state.noresult && <Stack spacing={2} sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+            <Typography variant='h5' sx={{ fontFamily: "sans-serif", fontWeight: "bold", color: "#4f4f50a2" }}>No matches found!!!</Typography>
+            <CardMedia component={"img"} height="300px" width="300px" image={nomatch} />
+          </Stack>}
           {currentProducts.map(products => <Grid item xs={12} sm={6} md={3} lg={3} key={products.id}>
             <Box>
               <Card sx={{
-                height: 320, width: 280, justifyContent: "center",
+                height: 310, width: 280, justifyContent: "center",
                 alignItems: "stretch",
                 flexDirection: "column", cursor: "pointer",
                 boxShadow: "0 2px 6px rgba(17, 5, 66, 0.56)",
@@ -241,28 +246,29 @@ addtocart = (product) => {
                 }
               }
               } >
-                <Box sx={{display:"flex",justifyContent:"center"}}>
-                <CardMedia component="img" height="160" width="200" image={products.image}
+                <Box sx={{ display: "flex", justifyContent: "center" }}>
+                  <CardMedia component="img" height="160" width="200" image={products.image}
 
-                  sx={{
-                    objectFit: "contain", p: 2, transition: "all 0.3s ease",
-                    "&:hover": {
-                      borderColor: "#dfddebff",
-                      transform: "scale(1.1)",
+                    sx={{
+                      objectFit: "contain", p: 2, transition: "all 0.3s ease",
+                      "&:hover": {
+                        borderColor: "#dfddebff",
+                        transform: "scale(1.1)",
 
-                    }
-                  }}
-                  onClick={() => { this.clickhandler(products.id) }} fullWidth />
-                  </Box>
+                      }
+                    }}
+                    onClick={() => { this.clickhandler(products.id) }} fullWidth />
+                </Box>
 
                 <Box sx={{ bgcolor: "#0a1f254f", display: "flex", flexDirection: "column", justifyContent: "space-between", }} width={"100%"} height={"160px"}>
-                  <CardContent t sx={{ flexGrow: 1, height: "160px" }}>
+                  <CardContent sx={{ flexGrow: 1, height: "160px" }}>
                     <Typography variant='body1' sx={{ display: "flex", justifyContent: "left", fontWeight: "bold" }} >{products.title.substring(0, 25)}</Typography>
                     <Typography variant='body2' sx={{ fontFamily: "sans-serif", fontWeight: "bold", color: "#be0909ff", display: "flex", justifyContent: "left" }}>₹ {products.price}</Typography>
-                    <Box sx={{display:"flex",justifyContent:"space-between",mt:"8px"}}>
-                    <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "100px" }}><AddShoppingCartIcon />{products.quantity}</Button>
-                    <Button variant="contained" size="small" onClick={() => this.props.navigate("/cart")} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "120px" }}>Go to Cart</Button>
-                     </Box>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", mt: "8px" }}>
+                      <Button variant="contained" size="small" onClick={() => this.addtocart(products)} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "100px" }}><AddShoppingCartIcon />{this.state.cart.find((item) => item.id === products.id)?.quantity || ""}
+                      </Button>
+                      <Button variant="contained" size="small" onClick={() => this.props.navigate("/cart")} sx={{ bgcolor: "#eb9514ff", color: "#0a1f25ff", fontWeight: "bold", width: "120px" }}>Go to Cart</Button>
+                    </Box>
                   </CardContent>
                 </Box>
               </Card>
@@ -311,15 +317,15 @@ function ProductWrapper() {
 export default ProductWrapper
 
 //addtocart = (product) => {
-  //   const cart = JSON.parse(localStorage.getItem('cart')) || [];
+//   const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-  //   const existing = cart.find((item) => item.id === product.id);
-  //   if (existing) {
-  //     existing.quantity += 1;
-  //   } else {
-  //     cart.push({ ...product, quantity: 1 });
-  //   }
+//   const existing = cart.find((item) => item.id === product.id);
+//   if (existing) {
+//     existing.quantity += 1;
+//   } else {
+//     cart.push({ ...product, quantity: 1 });
+//   }
 
-  //   localStorage.setItem('cart', JSON.stringify(cart));
-  //   this.setState({ openSnackbar: true });
-  // };
+//   localStorage.setItem('cart', JSON.stringify(cart));
+//   this.setState({ openSnackbar: true });
+// };

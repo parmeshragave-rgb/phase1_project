@@ -27,7 +27,6 @@ class Sliderhome extends Component {
       slidesToScroll: 1,
       autoplay: true,
       autoplaySpeed: 1000,
-      //cssEase: "linear",
       arrows: false,
       pauseOnHover: true,
       

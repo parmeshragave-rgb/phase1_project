@@ -151,7 +151,7 @@ class ProductDetail extends Component {
             </Typography>
 
             <Stack direction="row" spacing={2}>
-              <Button
+              {!product.quantity ? <Button
                 variant="contained"
                 onClick={() => this.addtocart(product)}
                 sx={{
@@ -162,10 +162,31 @@ class ProductDetail extends Component {
                   bgcolor: "#eb9514ff", color: "#0a1f25ff",
                 }}
               >
+                
                 <AddShoppingCartIcon sx={{ mr: 1 }} />
-                Add to Cart {product.quantity}
+
+                Add to Cart
+              </Button> : 
+              <Button
+                variant="contained"
+                onClick={() => this.props.navigate('/cart')}
+                sx={{
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+
+                  "&:hover": { bgcolor: "#00008002" },
+                  bgcolor: "#eb9514ff", color: "#0a1f25ff",
+                }}
+              >
+                
+                <AddShoppingCartIcon sx={{ mr: 1 }} />
+
+                Go to Cart
               </Button>
 
+
+                }
+              
               <Button
                 variant="contained"
                 sx={{
