@@ -13,8 +13,8 @@ class ProductDetail extends Component {
     this.state = {
       product: {},
       openSnackbar: false,
-      desLen:150,
-      expanded:false
+      desLen: 150,
+      expanded: false
     }
   }
 
@@ -30,26 +30,31 @@ class ProductDetail extends Component {
   }
 
   addtocart = (product) => {
- const token = localStorage.getItem("token"); 
+    const token = localStorage.getItem("token");
     if (!token) {
       this.props.navigate("/login");
       return;
     }
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const userCartKey = loggedInUser && `cart_${loggedInUser.username}`
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
+
 
     const existing = cart.find((item) => item.id === product.id);
-    let newQuantity=1
+    let newQuantity = 1
     if (existing) {
       existing.quantity += 1;
-      newQuantity=existing.quantity;
+      newQuantity = existing.quantity;
     } else {
       cart.push({ ...product, quantity: 1 });
     }
 
-    localStorage.setItem('cart', JSON.stringify(cart));
-    this.setState({ 
-      openSnackbar: true ,
-       product: { ...product, quantity: newQuantity }
+    localStorage.setItem(userCartKey, JSON.stringify(cart));
+    window.dispatchEvent(new Event("storage"));
+
+    this.setState({
+      openSnackbar: true,
+      product: { ...product, quantity: newQuantity }
     });
   };
 
@@ -57,15 +62,15 @@ class ProductDetail extends Component {
     if (reason === "clickaway") return;
     this.setState({ openSnackbar: false });
   };
-  toggleDescription =() =>{
-    this.setState( (prev) => ({
-      expanded:!prev.expanded
+  toggleDescription = () => {
+    this.setState((prev) => ({
+      expanded: !prev.expanded
     }))
   }
 
 
   render() {
-    const { product,desLen,expanded} = this.state
+    const { product, desLen, expanded } = this.state
     if (!product || !product.id) {
       return <Typography sx={{ mt: 10, textAlign: "center" }}>Loading...</Typography>;
     }
@@ -105,7 +110,7 @@ class ProductDetail extends Component {
             }}
           >
             <ArrowBackIcon sx={{ mr: 1 }} />
-            
+
           </Button>
 
 
@@ -145,21 +150,21 @@ class ProductDetail extends Component {
               {product.category.toUpperCase()}
             </Typography>
 
-           <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
-  {expanded ? product.description : `${product.description.substring(0, desLen)}... `}
-  <Box
-    component="span"
-    onClick={this.toggleDescription}
-    sx={{
-      fontFamily: "sans-serif",
-      fontWeight: "bold",
-      cursor: "pointer",
-      display: "inline",
-    }}
-  >
-    {expanded ? "Read Less" : "Read more"}
-  </Box>
-</Typography>
+            <Typography variant="body1" sx={{ mb: 2, textAlign: "justify" }}>
+              {expanded ? product.description : `${product.description.substring(0, desLen)}... `}
+              <Box
+                component="span"
+                onClick={this.toggleDescription}
+                sx={{
+                  fontFamily: "sans-serif",
+                  fontWeight: "bold",
+                  cursor: "pointer",
+                  display: "inline",
+                }}
+              >
+                {expanded ? "Read Less" : "Read more"}
+              </Box>
+            </Typography>
 
 
             <Typography variant="h6" sx={{ fontWeight: "bold", mb: 2 }}>
@@ -178,32 +183,32 @@ class ProductDetail extends Component {
                   bgcolor: "#eb9514ff", color: "#0a1f25ff",
                 }}
               >
-                
+
                 <AddShoppingCartIcon sx={{ mr: 1 }} />
 
                 Add to Cart
-              </Button> : 
-              <Button
-                variant="contained"
-                onClick={() => this.props.navigate('/cart')}
-                sx={{
-                  fontFamily: "sans-serif",
-                  fontWeight: "bold",
+              </Button> :
+                <Button
+                  variant="contained"
+                  onClick={() => this.props.navigate('/cart')}
+                  sx={{
+                    fontFamily: "sans-serif",
+                    fontWeight: "bold",
 
-                  "&:hover": { bgcolor: "#00008002" },
-                  bgcolor: "#eb9514ff", color: "#0a1f25ff",
-                }}
-              >
-                
-                <AddShoppingCartIcon sx={{ mr: 1 }} />
-               {window.dispatchEvent(new Event("storage"))}
+                    "&:hover": { bgcolor: "#00008002" },
+                    bgcolor: "#eb9514ff", color: "#0a1f25ff",
+                  }}
+                >
 
-                Go to Cart
-              </Button>
+                  <AddShoppingCartIcon sx={{ mr: 1 }} />
+                  {window.dispatchEvent(new Event("storage"))}
+
+                  Go to Cart
+                </Button>
 
 
-                }
-              
+              }
+
               <Button
                 variant="contained"
                 sx={{

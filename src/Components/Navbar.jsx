@@ -29,7 +29,8 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const userCartKey = loggedInUser && `cart_${loggedInUser.username}`
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
     this.state = {
       mobileOpen: false,
       isLoggedIn: !!loggedInUser,
@@ -46,10 +47,14 @@ class Navbar extends Component {
 
   componentWillUnmount() {
     window.removeEventListener("storage", this.syncLoginState);
+    window.removeEventListener("storage", this.syncCartState);
+
   }
 
   syncCartState = () => {
-    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    const userCartKey = loggedInUser && `cart_${loggedInUser.username}`
+    const cart = JSON.parse(localStorage.getItem(userCartKey)) || [];
     const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     this.setState({ cartCount });
   };
@@ -69,8 +74,11 @@ class Navbar extends Component {
 
   handleLogout = () => {
     localStorage.removeItem("loggedInUser");
-    localStorage.removeItem("cart");
     localStorage.removeItem("token");
+    const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+    if (loggedInUser) {
+      localStorage.removeItem(`cart_${loggedInUser.username}`);
+    }
     window.dispatchEvent(new Event("storage"))
     this.setState({ isLoggedIn: false, loggedInUser: null });
     this.handleMenuClose();
@@ -93,21 +101,21 @@ class Navbar extends Component {
         </Box>
         <Divider />
         <List>
-          <ListItem button onClick={() => {this.props.navigate("/");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => { this.props.navigate("/"); this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen })) }} sx={{ cursor: "pointer" }}>
             <HomeIcon sx={{ mr: 1 }} />
             <ListItemText primary="Home" />
           </ListItem>
-          <ListItem button onClick={() => {this.props.navigate("/products");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => { this.props.navigate("/products"); this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen })) }} sx={{ cursor: "pointer" }}>
             <ShoppingCartCheckoutIcon sx={{ mr: 1 }} />
             <ListItemText primary="Shop" />
           </ListItem>
-          <ListItem button onClick={() => {this.props.navigate("/cart");this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}} sx={{ cursor: "pointer" }}>
+          <ListItem button onClick={() => { this.props.navigate("/cart"); this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen })) }} sx={{ cursor: "pointer" }}>
             <ShoppingCartIcon sx={{ mr: 1 }} />
             <ListItemText primary="Cart" />
           </ListItem>
 
           {isLoggedIn ? (
-            <ListItem button onClick={() => {this.handleLogout ;this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen }))}}  sx={{ cursor: "pointer" }}>
+            <ListItem button onClick={() => { this.handleLogout; this.setState((prevState) => ({ mobileOpen: !prevState.mobileOpen })) }} sx={{ cursor: "pointer" }}>
               <LogoutIcon sx={{ mr: 1 }} /> <ListItemText primary="Logout" />
             </ListItem>
           ) : (
