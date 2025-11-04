@@ -8,6 +8,7 @@ import Cart from './Pages/Cart';
 import Login from './Pages/Login';
 import { Box ,Toolbar} from '@mui/material';
 import Footer from './Components/Footer';
+import ProtectedRoute from './Components/ProtectedRoute';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 function App() 
@@ -34,7 +35,7 @@ function App()
            <Route path="/" element={<Box sx={{width:"100%",overflowX:"hidden" }}><Homepage /></Box> }  />
            <Route path="products" element={<Product/>}></Route>
             <Route path="/product/:id" element={<ProductDetail/>} />
-           <Route path="cart" element={<Cart/>} />
+           <Route path="cart" element={<ProtectedRoute><Cart/></ProtectedRoute>} />
             <Route path="login" element={<Login />} />
       </Routes>
 </BrowserRouter>

@@ -133,28 +133,28 @@ export default WrapperCart
 
 
 
-// addtocart = (product) => {
-//   const { products } = this.state;
-//   const updatedProducts = [...products];
+addtocart = (product) => {
+  const { products } = this.state;
+  const updatedProducts = [...products];
 
-//   const index = updatedProducts.findIndex((p) => p.id === product.id);
-//   if (index !== -1) {
-//     updatedProducts[index].quantity = (updatedProducts[index].quantity || 0) + 1;
-//   }
+  const index = updatedProducts.findIndex((p) => p.id === product.id);
+  if (index !== -1) {
+    updatedProducts[index].quantity = (updatedProducts[index].quantity || 0) + 1;
+  }
 
-//   const cart = JSON.parse(localStorage.getItem('cart')) || [];
-//   const existing = cart.find((item) => item.id === product.id);
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const existing = cart.find((item) => item.id === product.id);
 
-//   if (existing) {
-//     existing.quantity += 1;
-//   } else {
-//     cart.push({ ...product, quantity: 1 });
-//   }
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
 
-//   localStorage.setItem('cart', JSON.stringify(cart));
+  localStorage.setItem('cart', JSON.stringify(cart));
 
-//   this.setState({
-//     openSnackbar: true,
-//     products: updatedProducts, 
-//   });
-// };
+  this.setState({
+    openSnackbar: true,
+    products: updatedProducts, 
+  });
+};

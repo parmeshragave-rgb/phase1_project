@@ -13,7 +13,7 @@ class ProductDetail extends Component {
     this.state = {
       product: {},
       openSnackbar: false,
-      desLen:50,
+      desLen:150,
       expanded:false
     }
   }
@@ -30,6 +30,11 @@ class ProductDetail extends Component {
   }
 
   addtocart = (product) => {
+ const token = localStorage.getItem("token"); 
+    if (!token) {
+      this.props.navigate("/login");
+      return;
+    }
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
 
     const existing = cart.find((item) => item.id === product.id);
@@ -191,6 +196,7 @@ class ProductDetail extends Component {
               >
                 
                 <AddShoppingCartIcon sx={{ mr: 1 }} />
+               {window.dispatchEvent(new Event("storage"))}
 
                 Go to Cart
               </Button>
