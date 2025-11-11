@@ -1,22 +1,16 @@
-import React, { Component } from "react";
-import { Box, Toolbar } from "@mui/material";
-import Navbar from "./Navbar";
-import { Outlet } from "react-router-dom";
-
+import React, { Component } from 'react';
+import { Box, Toolbar } from '@mui/material';
+import Navbar from './Navbar';
+import { Outlet } from 'react-router-dom';
 
 class Layout extends Component {
-  
   render() {
     return (
       <>
-        <Navbar/>
-        
-        
-       </>
-         
-        
+        <Navbar />
+      </>
     );
   }
 }
 
-export default Layout
+export default Layout;

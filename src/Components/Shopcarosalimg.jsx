@@ -46,7 +46,7 @@
 //     return (
 //       <Box sx={{ p: 4,mt:"45px"}}>
 //        <Stack direction="column" alignItems="left" spacing={1} sx={{ mt: 1, ml: 2 }}>
-  
+
 //   <Typography
 //     variant="h5"
 //     sx={{
@@ -71,9 +71,9 @@
 //                         textAlign: "center",}}>
 //           <Typography variant="h4" sx={{fontFamily:"sans-serif",fontWeight:"bold",color:"#2b2c2c3a"}}>Looks like you haven’t added anything yet..</Typography>
 //           <CardMedia component="img"
-//                      image={emptycart} 
+//                      image={emptycart}
 //                      sx={{ width: "300px",objectFit: "contain",height:"auto"}}
-             
+
 //                         />
 //           </Box>
 //         ) : (
@@ -106,7 +106,7 @@
 //                         Remove
 //                       </Button>
 //                     </CardActions>
-                    
+
 //                   </Card>
 //                 </Grid>
 //               ))}
@@ -131,8 +131,6 @@
 
 // /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
-
 // addtocart = (product) => {
 //   const { products } = this.state;
 //   const updatedProducts = [...products];
@@ -155,6 +153,6 @@
 
 //   this.setState({
 //     openSnackbar: true,
-//     products: updatedProducts, 
+//     products: updatedProducts,
 //   });
 // };

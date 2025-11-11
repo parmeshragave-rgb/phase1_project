@@ -1,6 +1,6 @@
-import { Box, Paper, Button, Menu, MenuItem } from "@mui/material";
-import React, { Component } from "react";
-import axios from "axios";
+import { Box, Paper, Button, Menu, MenuItem } from '@mui/material';
+import React, { Component } from 'react';
+import axios from 'axios';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
 class Categorydrop extends Component {
@@ -9,22 +9,22 @@ class Categorydrop extends Component {
 
     this.state = {
       categories: [],
-      selectedcat: "",
+      selectedcat: '',
       anchorEl: null,
-      filter:""
+      filter: '',
     };
   }
 
   componentDidMount() {
     axios
-      .get("https://fakestoreapi.com/products/categories")
+      .get('https://fakestoreapi.com/products/categories')
       .then((res) => this.setState({ categories: res.data }))
       .catch((err) => alert(`Error: ${err}`));
   }
 
   handlechange = (e) => {
     const cat = e.target.value;
-    this.setState({ selectedcat: cat ,filter:cat});
+    this.setState({ selectedcat: cat, filter: cat });
     this.props.oncatchange(cat);
   };
 
@@ -33,24 +33,21 @@ class Categorydrop extends Component {
 
     return (
       <Box
-         sx={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           ml: { xs: 0, sm: 2 },
           px: { xs: 1, sm: 1.5 },
           py: { xs: 0.5, sm: 0.8 },
         }}
-        
       >
         <Button
           variant="contained"
           onClick={(e) => this.setState({ anchorEl: e.currentTarget })}
-          sx={{bgcolor:"#eb9514ff",color:"#0a1f25ff"}}
-           
-          
+          sx={{ bgcolor: '#eb9514ff', color: '#0a1f25ff' }}
         >
-          <FilterAltIcon/>
+          <FilterAltIcon />
           {this.state.filter}
         </Button>
 
@@ -60,7 +57,7 @@ class Categorydrop extends Component {
           onClose={() => this.setState({ anchorEl: null })}
           PaperProps={{
             sx: {
-              borderRadius: "12px",
+              borderRadius: '12px',
               mt: 1,
               boxShadow: 3,
             },
@@ -68,9 +65,8 @@ class Categorydrop extends Component {
         >
           <MenuItem
             onClick={() => {
-              this.setState({ anchorEl: null, filter:"Filter" });
-              this.handlechange({ target: { value: "" } });
-
+              this.setState({ anchorEl: null, filter: 'Filter' });
+              this.handlechange({ target: { value: '' } });
             }}
           >
             ALL

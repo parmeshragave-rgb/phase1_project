@@ -1,17 +1,24 @@
-import React, { Component } from "react";
-import { Box, Button, TextField, Typography, Paper, Stack } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import React, { Component } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Paper,
+  Stack,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       isLogin: true,
-      username: "",
-      password: "",
-      email: "",
-      message: "",
-      errors: {}
+      username: '',
+      password: '',
+      email: '',
+      message: '',
+      errors: {},
     };
   }
 
@@ -25,22 +32,21 @@ class Login extends Component {
     const { navigate } = this.props;
     const errors = {};
 
-
     if (!username.trim()) {
-      errors.username = "Username is required";
+      errors.username = 'Username is required';
     }
 
     if (!password.trim()) {
-      errors.password = "Password is required";
+      errors.password = 'Password is required';
     } else if (password.length < 6) {
-      errors.password = "Password must be at least 6 characters long";
+      errors.password = 'Password must be at least 6 characters long';
     }
 
     if (!isLogin) {
       if (!email.trim()) {
-        errors.email = "Email is required";
+        errors.email = 'Email is required';
       } else if (!/\S+@\S+\.\S+/.test(email)) {
-        errors.email = "Enter a valid email";
+        errors.email = 'Enter a valid email';
       }
     }
 
@@ -51,8 +57,7 @@ class Login extends Component {
 
     this.setState({ errors });
 
-
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
     if (isLogin) {
       const user = users.find(
@@ -60,20 +65,19 @@ class Login extends Component {
       );
 
       if (user) {
-        localStorage.setItem("loggedInUser", JSON.stringify(user));
-        this.setState({ message: "Login successful!" });
-        localStorage.setItem("token", "true");
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        this.setState({ message: 'Login successful!' });
+        localStorage.setItem('token', 'true');
         const userCartKey = `cart_${user.username}`;
-        const existingCart = JSON.parse(localStorage.getItem(userCartKey)) || [];
-        localStorage.setItem("cart", JSON.stringify(existingCart));
-        window.dispatchEvent(new Event("storage"));
-        navigate("/");
+        const existingCart =
+          JSON.parse(localStorage.getItem(userCartKey)) || [];
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+        window.dispatchEvent(new Event('storage'));
+        navigate('/');
       } else {
-        this.setState({ message: "Invalid username or password!" });
+        this.setState({ message: 'Invalid username or password!' });
       }
-    }
-    else {
-
+    } else {
       const newUser = {
         id: Date.now(),
         username: username,
@@ -82,22 +86,22 @@ class Login extends Component {
       };
 
       users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("loggedInUser", JSON.stringify(newUser));
-      localStorage.setItem("token", "true");
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('loggedInUser', JSON.stringify(newUser));
+      localStorage.setItem('token', 'true');
 
-      window.dispatchEvent(new Event("storage"));
-      navigate("/");
+      window.dispatchEvent(new Event('storage'));
+      navigate('/');
     }
   };
 
   toggleMode = () => {
     this.setState((prev) => ({
       isLogin: !prev.isLogin,
-      message: "",
-      username: "",
-      password: "",
-      email: "",
+      message: '',
+      username: '',
+      password: '',
+      email: '',
       errors: {},
     }));
   };
@@ -108,11 +112,11 @@ class Login extends Component {
     return (
       <Box
         sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          background: "linear-gradient(to right, #ece9e6, #ffffff)",
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+          background: 'linear-gradient(to right, #ece9e6, #ffffff)',
           px: 2,
         }}
       >
@@ -120,14 +124,14 @@ class Login extends Component {
           elevation={6}
           sx={{
             p: 4,
-            width: "100%",
+            width: '100%',
             maxWidth: 400,
-            textAlign: "center",
+            textAlign: 'center',
             borderRadius: 3,
           }}
         >
           <Typography variant="h5" fontWeight="bold" mb={2}>
-            {isLogin ? "Login" : "Sign Up"}
+            {isLogin ? 'Login' : 'Sign Up'}
           </Typography>
 
           <form onSubmit={this.handleSubmit}>
@@ -141,7 +145,7 @@ class Login extends Component {
                   fullWidth
                   required
                   error={!!errors.email}
-                  helperText={errors.email || ""}
+                  helperText={errors.email || ''}
                 />
               )}
 
@@ -153,7 +157,7 @@ class Login extends Component {
                 fullWidth
                 required
                 error={!!errors.username}
-                helperText={errors.username || ""}
+                helperText={errors.username || ''}
               />
 
               <TextField
@@ -165,7 +169,7 @@ class Login extends Component {
                 fullWidth
                 required
                 error={!!errors.password}
-                helperText={errors.password || ""}
+                helperText={errors.password || ''}
               />
 
               <Button
@@ -173,13 +177,13 @@ class Login extends Component {
                 type="submit"
                 fullWidth
                 sx={{
-                  borderRadius: "50px",
-                  bgcolor: "#eb9514ff",
-                  fontFamily: "sans-serif",
-                  color: "black",
+                  borderRadius: '50px',
+                  bgcolor: '#eb9514ff',
+                  fontFamily: 'sans-serif',
+                  color: 'black',
                 }}
               >
-                {isLogin ? "Login" : "Sign Up"}
+                {isLogin ? 'Login' : 'Sign Up'}
               </Button>
             </Stack>
           </form>
@@ -188,15 +192,15 @@ class Login extends Component {
             variant="body2"
             sx={{
               mt: 2,
-              cursor: "pointer",
-              color: "#000007ff",
-              textDecoration: "underline",
+              cursor: 'pointer',
+              color: '#000007ff',
+              textDecoration: 'underline',
             }}
             onClick={this.toggleMode}
           >
             {isLogin
-              ? "New user? Create an account"
-              : "Already have an account? Login"}
+              ? 'New user? Create an account'
+              : 'Already have an account? Login'}
           </Typography>
 
           {message && (
