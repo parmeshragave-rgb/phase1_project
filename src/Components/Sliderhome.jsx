@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {PureComponent}from 'react';
 import Slider from 'react-slick';
 import {
   Card,
@@ -12,7 +12,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import tsImage from '../ts.png';
 
-class Sliderhome extends Component {
+class Sliderhome extends PureComponent{
   constructor(props) {
     super(props);
 
@@ -149,4 +149,4 @@ class Sliderhome extends Component {
   }
 }
 
-export default Sliderhome;
+export default Sliderhome

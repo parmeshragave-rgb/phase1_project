@@ -134,6 +134,7 @@ class Homepage extends Component {
                     component="img"
                     height="80"
                     image={product.image}
+                    loading='lazy'
                     sx={{
                       objectFit: 'contain',
                       p: 2,

@@ -260,6 +260,8 @@ class Product extends Component {
                 height="300px"
                 width="300px"
                 image={nomatch}
+                    loading='lazy'
+
               />
             </Stack>
           )}

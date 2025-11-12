@@ -4,6 +4,7 @@ import React from 'react';
 import { lazy,Suspense} from 'react';
 // import Product from './Pages/Product'
 const LazyProduct = lazy(() => import('./Pages/Product'));
+const LazyLogin=lazy(() => import ('./Pages/Login'))
 // const LazyProduct = React.lazy(() =>
 //   new Promise(resolve =>
 //     setTimeout(() => resolve(import('./Pages/Product')), 3000)
@@ -13,7 +14,6 @@ const LazyCart=lazy(() => import('./Pages/Cart'))
 const LazyProductDetail = lazy(() => import('./Pages/ProductDetail'));
 import Homepage from './Pages/Homepage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Login from './Pages/Login';
 import { Box, Toolbar } from '@mui/material';
 import Footer from './Components/Footer';
 import ProtectedRoute from './Components/ProtectedRoute';
@@ -93,7 +93,28 @@ function App() {
                   </Suspense>
                 }
               />
-              <Route path="login" element={<Login />} />
+
+              <Route
+                path="login"
+                element={
+                  <Suspense fallback={ <div style={{
+                          padding: 20,
+                          background: 'yellow',
+                          width: '100dvw',
+                          height: '100dvh',
+                          textAlign: 'center',
+                          color: 'red',
+                        }}
+                      >
+                        Loading...
+                      </div>
+                    }
+                  >
+                    <LazyLogin/>
+                  </Suspense>
+                }
+              />
+              
             </Routes>
           </BrowserRouter>
         </Box>

@@ -151,6 +151,7 @@ class Login extends Component {
 
               <TextField
                 label="Username"
+                placeholder='nameuser'
                 name="username"
                 value={username}
                 onChange={this.handleChange}
@@ -160,17 +161,18 @@ class Login extends Component {
                 helperText={errors.username || ''}
               />
 
-              <TextField
-                label="Password"
+               <TextField
+               label="Password"
                 type="password"
                 name="password"
+                placeholder='password'
                 value={password}
                 onChange={this.handleChange}
                 fullWidth
-                required
-                error={!!errors.password}
-                helperText={errors.password || ''}
-              />
+               required
+               error={!!errors.password}
+               helperText={errors.password || ''}
+               /> 
 
               <Button
                 variant="contained"

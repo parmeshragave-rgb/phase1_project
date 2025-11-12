@@ -137,6 +137,8 @@ class ProductDetail extends Component {
             <CardMedia
               component="img"
               image={product.image}
+                    loading='lazy'
+
               sx={{
                 width: '100%',
                 maxWidth: 350,
@@ -145,6 +147,7 @@ class ProductDetail extends Component {
                 borderRadius: 2,
                 bgcolor: '#f9f9f9',
                 position: 'relative',
+
               }}
             />
           </Box>

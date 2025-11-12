@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 
-class Categorydrop extends Component {
+class Categorydrop extends React.PureComponent{
   constructor(props) {
     super(props);
 
@@ -89,4 +89,4 @@ class Categorydrop extends Component {
   }
 }
 
-export default Categorydrop;
+export default Categorydrop

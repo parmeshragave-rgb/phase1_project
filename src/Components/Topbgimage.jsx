@@ -76,4 +76,4 @@ function TopbgWrapper() {
   const navigate = useNavigate();
   return <Topbgimage navigate={navigate} />;
 }
-export default TopbgWrapper;
+export default React.memo(TopbgWrapper)
