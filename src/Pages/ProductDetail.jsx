@@ -37,7 +37,9 @@ class ProductDetail extends Component {
           product: res.data,
         });
       })
-      .catch((error) => alert(`Error ${error}`));
+      .catch((error) =>
+  this.setState({ error: 'Error fetching product details' })
+);
   }
 
   addtocart = (product) => {
@@ -79,7 +81,15 @@ class ProductDetail extends Component {
   };
 
   render() {
-    const { product, desLen, expanded } = this.state;
+    const { product, desLen, expanded,error } = this.state;
+    
+    if (error) {
+    return (
+      <Typography sx={{ mt: 10, textAlign: 'center', color: 'red' }}>
+        {error}
+      </Typography>
+    );
+  }
     if (!product || !product.id) {
       return (
         <Typography sx={{ mt: 10, textAlign: 'center' }}>Loading...</Typography>

@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-class Login extends Component {
+export class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -20,13 +20,19 @@ class Login extends Component {
       message: '',
       errors: {},
     };
+
+   
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.toggleMode = this.toggleMode.bind(this);
   }
 
-  handleChange = (e) => {
+ 
+  handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-  };
+  }
 
-  handleSubmit = (e) => {
+  handleSubmit(e) {
     e.preventDefault();
     const { isLogin, username, password, email } = this.state;
     const { navigate } = this.props;
@@ -93,9 +99,9 @@ class Login extends Component {
       window.dispatchEvent(new Event('storage'));
       navigate('/');
     }
-  };
+  }
 
-  toggleMode = () => {
+  toggleMode() {
     this.setState((prev) => ({
       isLogin: !prev.isLogin,
       message: '',
@@ -104,7 +110,7 @@ class Login extends Component {
       email: '',
       errors: {},
     }));
-  };
+  }
 
   render() {
     const { isLogin, username, password, email, message, errors } = this.state;
@@ -151,7 +157,7 @@ class Login extends Component {
 
               <TextField
                 label="Username"
-                placeholder='nameuser'
+                placeholder="nameuser"
                 name="username"
                 value={username}
                 onChange={this.handleChange}
@@ -161,18 +167,18 @@ class Login extends Component {
                 helperText={errors.username || ''}
               />
 
-               <TextField
-               label="Password"
+              <TextField
+                label="Password"
                 type="password"
                 name="password"
-                placeholder='password'
+                placeholder="password"
                 value={password}
                 onChange={this.handleChange}
                 fullWidth
-               required
-               error={!!errors.password}
-               helperText={errors.password || ''}
-               /> 
+                required
+                error={!!errors.password}
+                helperText={errors.password || ''}
+              />
 
               <Button
                 variant="contained"
