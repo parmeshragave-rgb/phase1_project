@@ -89,7 +89,7 @@ expect(passwordInput2).toBeInTheDocument()
    
   })
 
-  test('login with empty fields shows validation errors', async () => {
+ test('login with empty fields shows validation errors', async () => {
   render(
     <MemoryRouter>
       <WrapperLogin />
@@ -99,8 +99,55 @@ expect(passwordInput2).toBeInTheDocument()
   const submitButton = screen.getByRole('button', { name: /login/i });
   await userEvent.click(submitButton);
 
-  expect(screen.getByText(/Username is required/i)).toBeInTheDocument();
-  expect(screen.getByText(/Password is required/i)).toBeInTheDocument();
+  
+  const usernameError = await screen.findByText(/Username is required/i);
+  const passwordError = await screen.findByText(/Password is required/i);
+
+  expect(usernameError).toBeInTheDocument();
+  expect(passwordError).toBeInTheDocument();
+});
+
+test('allows user to login successfully', async () => {
+  const users = [{ username: 'testuser', password: 'mypassword', email: 'test@example.com' }];
+  localStorage.setItem('users', JSON.stringify(users));
+  const navigateMock = vi.fn();
+
+  render(
+    <MemoryRouter>
+      <Login navigate={navigateMock} />
+    </MemoryRouter>
+  );
+
+  await userEvent.type(screen.getByLabelText(/Username/i), 'testuser');
+  await userEvent.type(screen.getByLabelText(/Password/i), 'mypassword');
+  await userEvent.click(screen.getByRole('button', { name: /login/i }));
+
+  expect(localStorage.getItem('loggedInUser')).toBeTruthy();
+  expect(localStorage.getItem('token')).toBe('true');
+  expect(navigateMock).toHaveBeenCalledWith('/');
+});
+
+test('allows user to sign up successfully', async () => {
+  const navigateMock = vi.fn();
+
+  render(
+    <MemoryRouter>
+      <Login navigate={navigateMock} />
+    </MemoryRouter>
+  );
+
+  fireEvent.click(screen.getByText(/New user\? Create an account/i));
+
+  await userEvent.type(screen.getByLabelText(/Username/i), 'newuser');
+  await userEvent.type(screen.getByLabelText(/Password/i), 'newpassword');
+  await userEvent.type(screen.getByLabelText(/Email/i), 'newuser@example.com');
+  await userEvent.click(screen.getByRole('button', { name: /sign up/i }));
+
+  const usersInStorage = JSON.parse(localStorage.getItem('users'));
+  expect(usersInStorage.some(u => u.username === 'newuser')).toBe(true);
+  expect(localStorage.getItem('loggedInUser')).toBeTruthy();
+  expect(localStorage.getItem('token')).toBe('true');
+  expect(navigateMock).toHaveBeenCalledWith('/');
 });
 
 // test('mocks handleSubmit and toggleMode', async () => {
