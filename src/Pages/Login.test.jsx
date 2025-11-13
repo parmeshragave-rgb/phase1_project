@@ -89,6 +89,20 @@ expect(passwordInput2).toBeInTheDocument()
    
   })
 
+  test('login with empty fields shows validation errors', async () => {
+  render(
+    <MemoryRouter>
+      <WrapperLogin />
+    </MemoryRouter>
+  );
+
+  const submitButton = screen.getByRole('button', { name: /login/i });
+  await userEvent.click(submitButton);
+
+  expect(screen.getByText(/Username is required/i)).toBeInTheDocument();
+  expect(screen.getByText(/Password is required/i)).toBeInTheDocument();
+});
+
 // test('mocks handleSubmit and toggleMode', async () => {
 //   const handleSubmitSpy = vi.spyOn(Login.prototype, 'handleSubmit');
 // const toggleModeSpy = vi.spyOn(Login.prototype, 'toggleMode');
