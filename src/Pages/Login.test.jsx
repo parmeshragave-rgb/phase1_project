@@ -17,19 +17,20 @@ test('renders login', () => {
     level:5
   })
   expect(heading).toBeInTheDocument()
+
   const usernameInput = screen.getByRole('textbox',{
     name:"Username"
   })
   expect(usernameInput).toBeInTheDocument()
-   expect(usernameInput).toHaveAttribute('type', 'text')
+  expect(usernameInput).toHaveAttribute('type', 'text')
 
- const passwordInput = screen.getByPlaceholderText(/password/i)
+   const passwordInput = screen.getByPlaceholderText(/password/i)
     expect(passwordInput).toBeInTheDocument()
     expect(passwordInput).toHaveAttribute('type', 'password')
 
 
   const passwordInput2 = screen.getByLabelText(/Password/i)
-expect(passwordInput2).toBeInTheDocument()
+  expect(passwordInput2).toBeInTheDocument()
 
   const usernameInput2=screen.getByLabelText(/Username/)
   expect(usernameInput2).toBeInTheDocument()
