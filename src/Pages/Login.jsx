@@ -8,6 +8,10 @@ import {
   Stack,
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from "jwt-decode";
+
+
 
 export class Login extends Component {
   constructor(props) {
@@ -21,13 +25,13 @@ export class Login extends Component {
       errors: {},
     };
 
-   
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
   }
 
- 
+
   handleChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -100,6 +104,44 @@ export class Login extends Component {
       navigate('/');
     }
   }
+
+  handleGoogleSuccess = (credentialResponse) => {
+    Promise.resolve(credentialResponse.credential)
+      .then((token) => jwtDecode(token))
+      .then((decoded) => {
+        const user = {
+          username: decoded.name,
+          email: decoded.email,
+          picture: decoded.picture,
+          id: decoded.sub,
+        };
+
+
+        localStorage.setItem('loggedInUser', JSON.stringify(user));
+        localStorage.setItem('token', 'true');
+
+
+        const userCartKey = `cart_${user.username}`;
+        const existingCart =
+          JSON.parse(localStorage.getItem(userCartKey)) || [];
+        localStorage.setItem('cart', JSON.stringify(existingCart));
+
+
+        window.dispatchEvent(new Event('storage'));
+
+
+        this.props.navigate('/');
+      })
+      .catch((error) => {
+        console.log('Google login decode error:', error);
+        this.setState({ message: 'Google login failed!' });
+      });
+  };
+
+  handleGoogleFailure = () => {
+    this.setState({ message: "Google login failed!" });
+  };
+
 
   toggleMode() {
     this.setState((prev) => ({
@@ -193,6 +235,27 @@ export class Login extends Component {
               >
                 {isLogin ? 'Login' : 'Sign Up'}
               </Button>
+
+
+              <Typography variant="body2" align="center">OR</Typography>
+
+              {/* <GoogleLogin
+                onSuccess={this.handleGoogleSuccess}
+                onError={this.handleGoogleFailure}
+              fullWidth/> */}
+
+              <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                <GoogleLogin
+                  onSuccess={this.handleGoogleSuccess}
+                  onError={this.handleGoogleFailure}
+                  width="100%"
+                  theme="outline"
+                  size="large"
+                  type="standard"
+                  shape="rectangular"
+                  
+                />
+              </Box>
             </Stack>
           </form>
 
