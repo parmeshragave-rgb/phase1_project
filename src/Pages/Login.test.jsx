@@ -190,38 +190,38 @@ test('allows user to login successfully', async () => {
 
 ////////////////////
 
-// test("allows user to login successfully mocking localStorage", async () => {
+test("allows user to login successfully mocking localStorage", async () => {
   
-//   localStorage.getItem.mockReturnValueOnce(
-//     JSON.stringify([{ username: "testuser", password: "mypassword" }])
-//   );
+  localStorage.getItem.mockReturnValueOnce(
+    JSON.stringify([{ username: "testuser", password: "mypassword" }])
+  );
 
-//   const navigateMock = jest.fn();
+  const navigateMock = jest.fn();
 
-//   render(
-//     <GoogleOAuthProvider clientId={GOOGLE_TEST_CLIENT_ID}>
-//       <MemoryRouter>
-//         <Login navigate={navigateMock} />
-//       </MemoryRouter>
-//     </GoogleOAuthProvider>
-//   );
+  render(
+    <GoogleOAuthProvider clientId={GOOGLE_TEST_CLIENT_ID}>
+      <MemoryRouter>
+        <Login navigate={navigateMock} />
+      </MemoryRouter>
+    </GoogleOAuthProvider>
+  );
 
-//   await userEvent.type(screen.getByLabelText(/username/i), "testuser");
-//   await userEvent.type(screen.getByLabelText(/password/i), "mypassword");
-//   await userEvent.click(screen.getByRole("button", { name: /login/i }));
+  await userEvent.type(screen.getByLabelText(/username/i), "testuser");
+  await userEvent.type(screen.getByLabelText(/password/i), "mypassword");
+  await userEvent.click(screen.getByRole("button", { name: /login/i }));
 
   
-//   // expect(localStorage.setItem).toHaveBeenCalledWith("loggedInUser", "testuser");
-//   expect(localStorage.setItem).toHaveBeenCalledWith(
-//   "loggedInUser",
-//   JSON.stringify({ username: "testuser", password: "mypassword" })
-// );
+  expect(localStorage.setItem).toHaveBeenCalledWith("loggedInUser", "testuser");
+  expect(localStorage.setItem).toHaveBeenCalledWith(
+  "loggedInUser",
+  JSON.stringify({ username: "testuser", password: "mypassword" })
+);
 
-//   expect(localStorage.setItem).toHaveBeenCalledWith("token", "true");
+  expect(localStorage.setItem).toHaveBeenCalledWith("token", "true");
 
-//   expect(navigateMock).toHaveBeenCalledWith("/");
-// });
-/////////////////
+  expect(navigateMock).toHaveBeenCalledWith("/");
+});
+///////////////
 
 
 

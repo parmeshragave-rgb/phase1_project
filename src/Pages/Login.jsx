@@ -105,38 +105,30 @@ export class Login extends Component {
     }
   }
 
-  handleGoogleSuccess = (credentialResponse) => {
-    Promise.resolve(credentialResponse.credential)
-      .then((token) => jwtDecode(token))
-      .then((decoded) => {
-        const user = {
-          username: decoded.name,
-          email: decoded.email,
-          picture: decoded.picture,
-          id: decoded.sub,
-        };
+  handleGoogleSuccess = async (credentialResponse) => {
+  const token = credentialResponse.credential;
+  const decoded = jwtDecode(token);
 
-
-        localStorage.setItem('loggedInUser', JSON.stringify(user));
-        localStorage.setItem('token', 'true');
-
-
-        const userCartKey = `cart_${user.username}`;
-        const existingCart =
-          JSON.parse(localStorage.getItem(userCartKey)) || [];
-        localStorage.setItem('cart', JSON.stringify(existingCart));
-
-
-        window.dispatchEvent(new Event('storage'));
-
-
-        this.props.navigate('/');
-      })
-      .catch((error) => {
-        console.log('Google login decode error:', error);
-        this.setState({ message: 'Google login failed!' });
-      });
+  const user = {
+    username: decoded.name,
+    email: decoded.email,
+    picture: decoded.picture,
+    id: decoded.sub,
   };
+
+  localStorage.setItem('loggedInUser', JSON.stringify(user));
+  localStorage.setItem('token', 'true');
+
+  const userCartKey = `cart_${user.username}`;
+  const existingCart =
+    JSON.parse(localStorage.getItem(userCartKey)) || [];
+  localStorage.setItem('cart', JSON.stringify(existingCart));
+
+  window.dispatchEvent(new Event('storage'));
+
+
+  this.props.navigate('/');
+};
 
   handleGoogleFailure = () => {
     this.setState({ message: "Google login failed!" });
